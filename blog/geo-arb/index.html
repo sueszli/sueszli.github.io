@@ -1,0 +1,5504 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Geographic arbitrage for European SWEs</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../assets/blog.css">
+</head>
+
+<body class="blog-post">
+
+
+<header id="title-block-header">
+<h1 class="title">Geographic arbitrage for European SWEs</h1>
+
+</header>
+
+
+<p>The <a href="https://www.levels.fyi/heatmap/europe/">Levels.fyi Europe heatmap</a> shows how software engineer pay varies across Europe, but it doesn’t tell you how much you’d have left after taxes and living costs. I used it as a starting point to compare what you could save each month in six cities.</p>
+<p><a href="https://www.levels.fyi/heatmap/europe/"><img src="../assets/levels-europe-heatmap.jpg" alt="Levels.fyi heatmap of median software engineer pay by European country in euros, with its color legend"></a></p>
+<p>I took five pay percentiles from <a href="https://www.levels.fyi/">Levels.fyi</a> in November 2025 and modeled taxes and employee contributions in Python. I worked from published government code where I could and used Claude to help translate the written rules where I couldn’t. To estimate monthly savings, I divided annual take-home pay by 12 and subtracted a budget based on <a href="https://www.numbeo.com/cost-of-living/">Numbeo</a> for one person renting a one-bedroom apartment in the city centre.</p>
+<ul>
+<li>I paired country-level pay with city-level costs, so the same pay percentile can reflect a different mix of jobs and experience in each country.</li>
+<li>I spread stock and bonuses across the year as if they were cash, even though they don’t necessarily come in as regular monthly income.</li>
+<li>For Vaduz, I used Swiss pay as a stand-in because I didn’t have enough data for Liechtenstein.</li>
+</ul>
+<p>The black line marks gross pay, and the colors show how much goes to taxes and contributions, how much goes to living costs, and what’s left. If take-home pay doesn’t cover all the living costs, the bar shows only what you can afford, while the table shows the full costs and how much you’d be short.</p>
+<figure class="geo-figure" id="geo-comparison"><ul class="geo-legend" role="list" aria-label="Chart legend"><li><span aria-hidden="true" style="--swatch: #b2df8a"></span>Left over</li><li><span aria-hidden="true" style="--swatch: #a6cee3"></span>Cost of living</li><li><span aria-hidden="true" style="--swatch: #356798"></span>Taxes and contributions</li></ul><section class="geo-panel" data-percentile="10th" aria-label="10th percentile" hidden=""><svg aria-hidden="true" xlink="http://www.w3.org/1999/xlink" width="504pt" height="288pt" viewbox="0 0 504 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:agent>
+    </dc:creator>
+   </cc:work>
+  </rdf:rdf>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="geo-10th-figure_1">
+  <g id="geo-10th-patch_1">
+   <path d="M 0 288 
+L 504 288 
+L 504 0 
+L 0 0 
+z
+" style="fill: #ffffff"></path>
+  </g>
+  <g id="geo-10th-axes_1">
+   <g id="geo-10th-matplotlib.axis_1">
+    <g id="geo-10th-xtick_1">
+     <g id="geo-10th-line2d_1">
+      <path d="M 47.52 247.200469 
+L 47.52 5.04 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-10th-text_1">
+      <!-- €0 -->
+      <g style="fill: #26211e" transform="translate(40.187812 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-66c" d="M 13 1856 
+C 13 1786 83 1779 154 1779 
+L 755 1779 
+C 979 646 1946 0 2906 0 
+C 3366 0 3782 147 4122 371 
+C 4403 563 4416 614 4416 730 
+L 4416 909 
+C 4416 1005 4390 1037 4352 1037 
+C 4314 1037 4269 998 4224 960 
+C 3898 685 3430 486 2906 486 
+C 2150 486 1459 973 1248 1779 
+L 3437 1779 
+C 3526 1779 3565 1792 3622 1920 
+C 3642 1958 3648 1990 3648 2016 
+C 3648 2067 3616 2086 3507 2086 
+L 1203 2086 
+L 1203 2285 
+L 3610 2285 
+C 3667 2285 3718 2278 3763 2304 
+C 3834 2342 3872 2496 3872 2522 
+C 3872 2566 3840 2586 3744 2592 
+L 1248 2592 
+C 1453 3373 2131 3891 2899 3891 
+C 3738 3891 4096 3354 4198 3354 
+C 4282 3354 4390 3635 4390 3731 
+L 4390 3750 
+C 4301 3917 3667 4371 2899 4371 
+C 1984 4371 986 3763 755 2592 
+L 218 2592 
+C 32 2586 13 2362 13 2362 
+C 13 2298 83 2285 147 2285 
+L 717 2285 
+L 717 2086 
+L 211 2086 
+C 32 2086 13 1856 13 1856 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-11" d="M 250 2048 
+C 250 1568 275 992 538 506 
+C 813 -13 1280 -141 1594 -141 
+C 1939 -141 2426 -6 2707 602 
+C 2912 1043 2944 1542 2944 2048 
+C 2944 2560 2912 3072 2688 3546 
+C 2394 4160 1869 4262 1600 4262 
+C 1216 4262 749 4096 486 3501 
+C 282 3059 250 2560 250 2048 
+z
+M 781 2125 
+C 781 2534 781 2957 832 3302 
+C 954 4064 1434 4122 1594 4122 
+C 1805 4122 2227 4006 2349 3373 
+C 2413 3014 2413 2528 2413 2125 
+C 2413 1645 2413 1210 2342 800 
+C 2246 192 1882 0 1594 0 
+C 1344 0 966 160 851 774 
+C 781 1158 781 1747 781 2125 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-10th-CMUSerif-Roman-11" transform="translate(72.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-xtick_2">
+     <g id="geo-10th-line2d_2">
+      <path d="M 135.339939 247.200469 
+L 135.339939 5.04 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-10th-text_2">
+      <!-- €5k -->
+      <g style="fill: #26211e" transform="translate(124.845564 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-16" d="M 320 1030 
+C 320 480 762 -141 1478 -141 
+C 2221 -141 2874 474 2874 1286 
+C 2874 2048 2349 2688 1658 2688 
+C 1350 2688 1075 2586 845 2362 
+L 845 3610 
+C 973 3571 1184 3526 1389 3526 
+C 2176 3526 2624 4109 2624 4192 
+C 2624 4230 2605 4262 2560 4262 
+C 2554 4262 2541 4262 2509 4243 
+C 2381 4186 2067 4058 1638 4058 
+C 1382 4058 1088 4102 787 4237 
+C 736 4256 723 4256 710 4256 
+C 646 4256 646 4205 646 4102 
+L 646 2208 
+C 646 2093 646 2042 736 2042 
+C 781 2042 794 2061 819 2099 
+C 890 2202 1126 2547 1645 2547 
+C 1978 2547 2138 2253 2189 2138 
+C 2291 1901 2304 1651 2304 1331 
+C 2304 1107 2304 723 2150 454 
+C 1997 205 1760 38 1466 38 
+C 998 38 634 378 525 755 
+C 544 749 563 742 634 742 
+C 845 742 954 902 954 1056 
+C 954 1210 845 1370 634 1370 
+C 544 1370 320 1325 320 1030 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-4c" d="M 179 0 
+C 390 6 691 19 877 19 
+C 1069 19 1325 13 1581 0 
+L 1581 198 
+C 1152 198 1082 198 1082 486 
+L 1082 1146 
+L 1491 1498 
+C 1984 819 2253 461 2253 346 
+C 2253 224 2144 198 2022 198 
+L 2022 0 
+C 2202 6 2579 19 2714 19 
+C 2899 19 3085 13 3270 0 
+L 3270 198 
+C 3034 198 2893 198 2650 538 
+L 1837 1683 
+C 1830 1696 1798 1734 1798 1754 
+C 1798 1779 2253 2163 2317 2214 
+C 2720 2541 2989 2554 3123 2560 
+L 3123 2758 
+C 2938 2739 2854 2739 2675 2739 
+C 2445 2739 2048 2752 1958 2758 
+L 1958 2560 
+C 2080 2554 2144 2483 2144 2400 
+C 2144 2272 2054 2195 2003 2150 
+L 1101 1370 
+L 1101 4442 
+L 179 4371 
+L 179 4173 
+C 627 4173 678 4128 678 3814 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-10th-CMUSerif-Roman-16" transform="translate(72.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4c" transform="translate(122.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-xtick_3">
+     <g id="geo-10th-line2d_3">
+      <path d="M 223.159878 247.200469 
+L 223.159878 5.04 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-10th-text_3">
+      <!-- €10k -->
+      <g style="fill: #26211e" transform="translate(209.665503 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-12" d="M 570 3654 
+C 698 3654 1075 3654 1408 3821 
+L 1408 506 
+C 1408 275 1389 198 813 198 
+L 608 198 
+L 608 0 
+C 832 19 1389 19 1645 19 
+C 1901 19 2458 19 2682 0 
+L 2682 198 
+L 2477 198 
+C 1901 198 1882 269 1882 506 
+L 1882 4096 
+C 1882 4250 1882 4262 1734 4262 
+C 1338 3853 774 3853 570 3853 
+L 570 3654 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-10th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-xtick_4">
+     <g id="geo-10th-line2d_4">
+      <path d="M 310.979818 247.200469 
+L 310.979818 5.04 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-10th-text_4">
+      <!-- €15k -->
+      <g style="fill: #26211e" transform="translate(297.485443 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-10th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-xtick_5">
+     <g id="geo-10th-line2d_5">
+      <path d="M 398.799757 247.200469 
+L 398.799757 5.04 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-10th-text_5">
+      <!-- €20k -->
+      <g style="fill: #26211e" transform="translate(385.305382 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-13" d="M 320 0 
+L 2694 0 
+L 2874 1114 
+L 2714 1114 
+C 2682 922 2637 640 2573 544 
+C 2528 493 2106 493 1965 493 
+L 813 493 
+L 1491 1152 
+C 2490 2035 2874 2381 2874 3021 
+C 2874 3750 2298 4262 1517 4262 
+C 794 4262 320 3674 320 3104 
+C 320 2746 640 2746 659 2746 
+C 768 2746 992 2822 992 3085 
+C 992 3251 877 3418 653 3418 
+C 602 3418 589 3418 570 3411 
+C 717 3827 1062 4064 1434 4064 
+C 2016 4064 2291 3546 2291 3021 
+C 2291 2509 1971 2003 1619 1606 
+L 390 237 
+C 320 166 320 154 320 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-10th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-xtick_6">
+     <g id="geo-10th-line2d_6">
+      <path d="M 486.619696 247.200469 
+L 486.619696 5.04 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-10th-text_6">
+      <!-- €25k -->
+      <g style="fill: #26211e" transform="translate(473.125321 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-10th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-xtick_7"></g>
+    <g id="geo-10th-xtick_8"></g>
+    <g id="geo-10th-xtick_9"></g>
+    <g id="geo-10th-xtick_10"></g>
+    <g id="geo-10th-xtick_11"></g>
+   </g>
+   <g id="geo-10th-matplotlib.axis_2">
+    <g id="geo-10th-ytick_1">
+     <g id="geo-10th-text_7">
+      <!-- Paris -->
+      <g style="fill: #26211e" transform="translate(17.95125 227.306347) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-31" d="M 224 0 
+C 448 19 922 19 1165 19 
+C 1408 19 1888 19 2112 0 
+L 2112 198 
+L 1958 198 
+C 1466 198 1453 269 1453 499 
+L 1453 2022 
+L 2534 2022 
+C 3302 2022 3994 2541 3994 3181 
+C 3994 3808 3360 4371 2483 4371 
+L 224 4371 
+L 224 4173 
+L 378 4173 
+C 870 4173 883 4102 883 3872 
+L 883 499 
+C 883 269 870 198 378 198 
+L 224 198 
+L 224 0 
+z
+M 1434 2189 
+L 1434 3917 
+C 1434 4128 1446 4173 1747 4173 
+L 2317 4173 
+C 3334 4173 3334 3494 3334 3181 
+C 3334 2880 3334 2189 2317 2189 
+L 1434 2189 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-42" d="M 269 608 
+C 269 90 890 -70 1293 -70 
+C 1715 -70 2010 186 2131 486 
+C 2157 230 2330 -38 2630 -38 
+C 2765 -38 3155 51 3155 570 
+L 3155 928 
+L 2995 928 
+L 2995 570 
+C 2995 198 2835 160 2765 160 
+C 2554 160 2528 448 2528 480 
+L 2528 1760 
+C 2528 2029 2528 2278 2298 2515 
+C 2048 2765 1728 2867 1421 2867 
+C 896 2867 454 2566 454 2144 
+C 454 1952 582 1843 749 1843 
+C 928 1843 1043 1971 1043 2138 
+C 1043 2214 1011 2426 717 2432 
+C 890 2656 1203 2726 1408 2726 
+C 1722 2726 2086 2477 2086 1907 
+L 2086 1670 
+C 1760 1651 1312 1632 909 1440 
+C 429 1222 269 890 269 608 
+z
+M 762 614 
+C 762 966 1030 1498 2086 1536 
+L 2086 896 
+C 2086 288 1626 70 1338 70 
+C 1024 70 762 294 762 614 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-53" d="M 179 0 
+C 429 6 730 19 909 19 
+C 1165 19 1466 19 1722 0 
+L 1722 198 
+L 1587 198 
+C 1114 198 1101 269 1101 499 
+L 1101 1485 
+C 1101 2118 1370 2688 1856 2688 
+C 1901 2688 1914 2688 1926 2682 
+C 1907 2675 1779 2598 1779 2432 
+C 1779 2253 1914 2157 2054 2157 
+C 2170 2157 2330 2234 2330 2438 
+C 2330 2643 2131 2829 1856 2829 
+C 1389 2829 1158 2400 1069 2125 
+L 1069 2829 
+L 179 2758 
+L 179 2560 
+C 627 2560 678 2515 678 2202 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-4a" d="M 480 3942 
+C 480 3770 621 3603 819 3603 
+C 998 3603 1158 3738 1158 3942 
+C 1158 4147 998 4282 819 4282 
+C 621 4282 480 4109 480 3942 
+z
+M 211 0 
+C 416 6 762 19 915 19 
+C 1139 19 1363 6 1581 0 
+L 1581 198 
+C 1158 198 1133 230 1133 480 
+L 1133 2829 
+L 237 2758 
+L 237 2560 
+C 653 2560 710 2522 710 2208 
+L 710 486 
+C 710 198 640 198 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-54" d="M 211 83 
+C 211 -26 211 -70 282 -70 
+C 314 -70 320 -64 442 58 
+C 454 70 454 83 570 205 
+C 851 -64 1139 -70 1274 -70 
+C 2010 -70 2304 358 2304 819 
+C 2304 1158 2112 1350 2035 1427 
+C 1824 1632 1574 1683 1306 1734 
+C 947 1805 518 1888 518 2259 
+C 518 2483 685 2746 1235 2746 
+C 1939 2746 1971 2170 1984 1971 
+C 1990 1914 2048 1914 2061 1914 
+C 2144 1914 2144 1946 2144 2067 
+L 2144 2714 
+C 2144 2822 2144 2867 2074 2867 
+C 2042 2867 2029 2867 1946 2790 
+C 1926 2765 1862 2707 1837 2688 
+C 1594 2867 1331 2867 1235 2867 
+C 454 2867 211 2438 211 2080 
+C 211 1856 314 1677 486 1536 
+C 691 1370 870 1331 1331 1242 
+C 1472 1216 1997 1114 1997 653 
+C 1997 326 1773 70 1274 70 
+C 736 70 506 435 384 979 
+C 365 1062 358 1088 294 1088 
+C 211 1088 211 1043 211 928 
+L 211 83 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-31"></use>
+       <use href="#geo-10th-CMUSerif-Roman-42" transform="translate(65.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-53" transform="translate(115.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4a" transform="translate(154.296875 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-54" transform="translate(182 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-ytick_2">
+     <g id="geo-10th-text_8">
+      <!-- London -->
+      <g style="fill: #26211e" transform="translate(5.04 188.751902) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-2d" d="M 211 0 
+L 3546 0 
+L 3725 1651 
+L 3565 1651 
+C 3494 998 3405 198 2278 198 
+L 1754 198 
+C 1453 198 1440 243 1440 454 
+L 1440 3866 
+C 1440 4083 1440 4173 2048 4173 
+L 2259 4173 
+L 2259 4371 
+C 2029 4352 1446 4352 1184 4352 
+C 934 4352 435 4352 211 4371 
+L 211 4173 
+L 365 4173 
+C 858 4173 870 4102 870 3872 
+L 870 499 
+C 870 269 858 198 365 198 
+L 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-50" d="M 179 1370 
+C 179 544 845 -70 1594 -70 
+C 2368 -70 3014 557 3014 1370 
+C 3014 2189 2374 2867 1600 2867 
+C 800 2867 179 2170 179 1370 
+z
+M 710 1421 
+C 710 1670 710 2016 864 2298 
+C 1037 2592 1338 2726 1594 2726 
+C 1875 2726 2150 2586 2317 2310 
+C 2483 2035 2483 1664 2483 1421 
+C 2483 1190 2483 845 2342 563 
+C 2202 275 1920 90 1600 90 
+C 1325 90 1043 224 870 518 
+C 710 800 710 1190 710 1421 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-4f" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-45" d="M 218 1376 
+C 218 563 845 -70 1574 -70 
+C 1984 -70 2272 147 2432 352 
+L 2432 -70 
+L 3373 0 
+L 3373 198 
+C 2925 198 2874 243 2874 557 
+L 2874 4442 
+L 1952 4371 
+L 1952 4173 
+C 2400 4173 2451 4128 2451 3814 
+L 2451 2432 
+C 2266 2662 1990 2829 1645 2829 
+C 890 2829 218 2202 218 1376 
+z
+M 749 1370 
+C 749 1606 762 1990 947 2278 
+C 1082 2477 1325 2688 1670 2688 
+C 1894 2688 2163 2592 2362 2304 
+C 2432 2195 2432 2182 2432 2067 
+L 2432 755 
+C 2432 640 2432 627 2362 518 
+C 2170 211 1882 70 1606 70 
+C 1318 70 1088 237 934 480 
+C 768 742 749 1107 749 1370 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-2d"></use>
+       <use href="#geo-10th-CMUSerif-Roman-50" transform="translate(62.5 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4f" transform="translate(112.5 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-45" transform="translate(168 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-50" transform="translate(223.5 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4f" transform="translate(273.5 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-ytick_3">
+     <g id="geo-10th-text_9">
+      <!-- Munich -->
+      <g style="fill: #26211e" transform="translate(5.23125 150.197457) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-2e" d="M 237 0 
+C 461 6 774 19 986 19 
+C 1197 19 1510 6 1734 0 
+L 1734 198 
+C 1075 198 1075 499 1075 672 
+L 1075 4122 
+L 1082 4122 
+L 2624 141 
+C 2656 58 2688 0 2752 0 
+C 2822 0 2842 51 2867 122 
+L 4442 4173 
+L 4448 4173 
+L 4448 499 
+C 4448 269 4435 198 3942 198 
+L 3789 198 
+L 3789 0 
+C 4026 19 4461 19 4710 19 
+C 4960 19 5389 19 5626 0 
+L 5626 198 
+L 5472 198 
+C 4979 198 4966 269 4966 499 
+L 4966 3872 
+C 4966 4102 4979 4173 5472 4173 
+L 5626 4173 
+L 5626 4371 
+L 4544 4371 
+C 4378 4371 4378 4365 4333 4250 
+L 2931 646 
+L 1542 4230 
+C 1485 4371 1466 4371 1318 4371 
+L 237 4371 
+L 237 4173 
+L 390 4173 
+C 883 4173 896 4102 896 3872 
+L 896 672 
+C 896 499 896 198 237 198 
+L 237 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-56" d="M 205 2560 
+C 704 2560 704 2541 704 1971 
+L 704 1011 
+C 704 512 704 -70 1677 -70 
+C 2035 -70 2317 109 2502 506 
+L 2502 -70 
+L 3424 0 
+L 3424 198 
+C 2976 198 2925 243 2925 557 
+L 2925 2829 
+L 1984 2758 
+L 1984 2560 
+C 2432 2560 2483 2515 2483 2202 
+L 2483 1062 
+C 2483 506 2176 70 1709 70 
+C 1171 70 1146 371 1146 704 
+L 1146 2829 
+L 205 2758 
+L 205 2560 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-44" d="M 218 1382 
+C 218 563 851 -70 1594 -70 
+C 2451 -70 2656 698 2656 762 
+C 2656 826 2592 826 2573 826 
+C 2515 826 2502 800 2490 762 
+C 2304 166 1888 90 1651 90 
+C 1312 90 749 365 749 1395 
+C 749 2438 1274 2707 1613 2707 
+C 1670 2707 2074 2701 2298 2470 
+C 2035 2451 1997 2259 1997 2176 
+C 1997 2010 2112 1882 2291 1882 
+C 2458 1882 2586 1990 2586 2182 
+C 2586 2618 2099 2867 1606 2867 
+C 806 2867 218 2176 218 1382 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-49" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1517 2829 1235 2445 1133 2214 
+L 1126 2214 
+L 1126 4442 
+L 205 4371 
+L 205 4173 
+C 653 4173 704 4128 704 3814 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-2e"></use>
+       <use href="#geo-10th-CMUSerif-Roman-56" transform="translate(91.59375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4f" transform="translate(147.09375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4a" transform="translate(202.59375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-44" transform="translate(230.296875 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-49" transform="translate(271.90625 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-ytick_4">
+     <g id="geo-10th-text_10">
+      <!-- Vienna -->
+      <g style="fill: #26211e" transform="translate(7.546875 111.643012) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-37" d="M 122 4173 
+C 538 4173 659 4173 749 3930 
+L 2234 0 
+C 2278 -122 2310 -141 2394 -141 
+C 2502 -141 2515 -109 2547 -19 
+L 3974 3744 
+C 4064 3981 4237 4166 4672 4173 
+L 4672 4371 
+C 4474 4358 4218 4352 4051 4352 
+C 3859 4352 3488 4365 3322 4371 
+L 3322 4173 
+C 3654 4166 3789 4000 3789 3853 
+C 3789 3802 3770 3763 3757 3725 
+L 2586 640 
+L 1363 3872 
+C 1325 3962 1325 3974 1325 3987 
+C 1325 4173 1690 4173 1850 4173 
+L 1850 4371 
+C 1619 4352 1178 4352 934 4352 
+C 627 4352 352 4365 122 4371 
+L 122 4173 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-10th-CMUSerif-Roman-46" d="M 179 1408 
+C 179 550 851 -70 1587 -70 
+C 2368 -70 2656 640 2656 762 
+C 2656 826 2605 838 2573 838 
+C 2515 838 2502 800 2490 749 
+C 2266 90 1690 90 1626 90 
+C 1306 90 1050 282 902 518 
+C 710 826 710 1248 710 1478 
+L 2496 1478 
+C 2637 1478 2656 1478 2656 1613 
+C 2656 2246 2310 2867 1510 2867 
+C 768 2867 179 2208 179 1408 
+z
+M 717 1613 
+C 755 2566 1293 2726 1510 2726 
+C 2170 2726 2234 1862 2234 1613 
+L 717 1613 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-37"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4a" transform="translate(75 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-46" transform="translate(102.703125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4f" transform="translate(147.109375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4f" transform="translate(202.609375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-42" transform="translate(258.109375 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-ytick_5">
+     <g id="geo-10th-text_11">
+      <!-- Zurich -->
+      <g style="fill: #26211e" transform="translate(10.86 73.088567) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-3b" d="M 358 109 
+C 358 0 390 0 525 0 
+L 3475 0 
+L 3584 1709 
+L 3424 1709 
+C 3373 819 3251 218 2067 218 
+L 1018 218 
+L 3501 4147 
+C 3546 4218 3546 4224 3546 4269 
+C 3546 4371 3507 4371 3379 4371 
+L 512 4371 
+L 442 2931 
+L 602 2931 
+C 646 3654 838 4173 1888 4173 
+L 2893 4173 
+L 403 237 
+C 358 166 358 160 358 109 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-3b"></use>
+       <use href="#geo-10th-CMUSerif-Roman-56" transform="translate(61.09375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-53" transform="translate(116.59375 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-4a" transform="translate(155.6875 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-44" transform="translate(183.390625 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-49" transform="translate(225 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-ytick_6">
+     <g id="geo-10th-text_12">
+      <!-- Vaduz -->
+      <g style="fill: #26211e" transform="translate(11.866875 34.534122) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-10th-CMUSerif-Roman-5b" d="M 179 90 
+C 179 0 224 0 346 0 
+L 2458 0 
+L 2566 1197 
+L 2406 1197 
+C 2349 442 2214 160 1472 160 
+L 717 160 
+L 2496 2566 
+C 2554 2637 2554 2650 2554 2675 
+C 2554 2758 2502 2758 2387 2758 
+L 339 2758 
+L 269 1728 
+L 429 1728 
+C 467 2381 589 2618 1293 2618 
+L 2022 2618 
+L 237 205 
+C 179 134 179 122 179 90 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-10th-CMUSerif-Roman-37"></use>
+       <use href="#geo-10th-CMUSerif-Roman-42" transform="translate(66.703125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-45" transform="translate(116.703125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-56" transform="translate(172.203125 0)"></use>
+       <use href="#geo-10th-CMUSerif-Roman-5b" transform="translate(227.703125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-10th-ytick_7"></g>
+    <g id="geo-10th-ytick_8"></g>
+    <g id="geo-10th-ytick_9"></g>
+    <g id="geo-10th-ytick_10"></g>
+    <g id="geo-10th-ytick_11"></g>
+    <g id="geo-10th-ytick_12"></g>
+    <g id="geo-10th-ytick_13"></g>
+   </g>
+   <g id="geo-10th-PolyCollection_1">
+    <path d="M 47.52 233.687136 
+L 47.52 211.325558 
+L 84.638561 211.325558 
+L 84.638561 233.687136 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #a6cee3"></path>
+    <path d="M 84.638561 233.687136 
+L 84.638561 211.325558 
+L 99.333764 211.325558 
+L 99.333764 233.687136 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #356798"></path>
+    <path d="M 47.52 195.132691 
+L 47.52 172.771113 
+L 104.387802 172.771113 
+L 104.387802 195.132691 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #a6cee3"></path>
+    <path d="M 104.387802 195.132691 
+L 104.387802 172.771113 
+L 117.922318 172.771113 
+L 117.922318 195.132691 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #356798"></path>
+    <path d="M 47.52 156.578246 
+L 47.52 134.216668 
+L 53.544448 134.216668 
+L 53.544448 156.578246 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #b2df8a"></path>
+    <path d="M 53.544448 156.578246 
+L 53.544448 134.216668 
+L 97.630057 134.216668 
+L 97.630057 156.578246 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #a6cee3"></path>
+    <path d="M 97.630057 156.578246 
+L 97.630057 134.216668 
+L 126.997045 134.216668 
+L 126.997045 156.578246 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #356798"></path>
+    <path d="M 47.52 118.023801 
+L 47.52 95.662223 
+L 56.057562 95.662223 
+L 56.057562 118.023801 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #b2df8a"></path>
+    <path d="M 56.057562 118.023801 
+L 56.057562 95.662223 
+L 81.174064 95.662223 
+L 81.174064 118.023801 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #a6cee3"></path>
+    <path d="M 81.174064 118.023801 
+L 81.174064 95.662223 
+L 89.380838 95.662223 
+L 89.380838 118.023801 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #356798"></path>
+    <path d="M 47.52 79.469356 
+L 47.52 57.107778 
+L 65.012268 57.107778 
+L 65.012268 79.469356 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #b2df8a"></path>
+    <path d="M 65.012268 79.469356 
+L 65.012268 57.107778 
+L 139.799728 57.107778 
+L 139.799728 79.469356 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #a6cee3"></path>
+    <path d="M 139.799728 79.469356 
+L 139.799728 57.107778 
+L 160.661355 57.107778 
+L 160.661355 79.469356 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #356798"></path>
+    <path d="M 47.52 40.914911 
+L 47.52 18.553333 
+L 92.769516 18.553333 
+L 92.769516 40.914911 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #b2df8a"></path>
+    <path d="M 92.769516 40.914911 
+L 92.769516 18.553333 
+L 146.926317 18.553333 
+L 146.926317 40.914911 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #a6cee3"></path>
+    <path d="M 146.926317 40.914911 
+L 146.926317 18.553333 
+L 160.661355 18.553333 
+L 160.661355 40.914911 
+z
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: #356798"></path>
+   </g>
+   <g id="geo-10th-LineCollection_1">
+    <path d="M 99.333764 236.193175 
+L 99.333764 208.819519 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 117.922318 197.63873 
+L 117.922318 170.265074 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 126.997045 159.084285 
+L 126.997045 131.710629 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 89.380838 120.52984 
+L 89.380838 93.156184 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 160.661355 81.975395 
+L 160.661355 54.601739 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 160.661355 43.42095 
+L 160.661355 16.047294 
+" clip-path="url(#geo-10th-p59bd24bd67)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+   </g>
+  </g>
+  <g id="geo-10th-text_13">
+   <!-- €/month -->
+   <g style="fill: #26211e" transform="translate(241.536805 279.240469) scale(0.15 -0.15)">
+    <defs>
+     <path id="geo-10th-CMUSerif-Roman-10" d="M 365 -1510 
+C 365 -1549 384 -1587 422 -1587 
+C 474 -1587 493 -1555 544 -1414 
+L 2810 4627 
+C 2816 4653 2829 4685 2829 4710 
+C 2829 4762 2790 4787 2765 4787 
+C 2694 4787 2669 4672 2650 4627 
+L 390 -1408 
+C 365 -1478 365 -1491 365 -1510 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-10th-CMUSerif-Roman-4e" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 2995 198 2925 198 2925 486 
+L 2925 1664 
+C 2925 2330 3379 2688 3789 2688 
+C 4192 2688 4262 2342 4262 1978 
+L 4262 486 
+C 4262 198 4192 198 3763 198 
+L 3763 0 
+C 3987 6 4314 19 4486 19 
+C 4653 19 4986 6 5203 0 
+L 5203 198 
+C 4870 198 4710 198 4704 390 
+L 4704 1613 
+C 4704 2163 4704 2362 4506 2592 
+C 4416 2701 4205 2829 3834 2829 
+C 3296 2829 3014 2445 2906 2202 
+C 2816 2758 2342 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-10th-CMUSerif-Roman-55" d="M 122 2560 
+L 666 2560 
+L 666 794 
+C 666 6 1261 -70 1491 -70 
+C 1946 -70 2125 384 2125 794 
+L 2125 1158 
+L 1965 1158 
+L 1965 806 
+C 1965 333 1773 90 1536 90 
+C 1107 90 1107 672 1107 781 
+L 1107 2560 
+L 2022 2560 
+L 2022 2758 
+L 1107 2758 
+L 1107 3936 
+L 947 3936 
+C 941 3411 749 2726 122 2701 
+L 122 2560 
+z
+" transform="scale(0.015625)"></path>
+    </defs>
+    <use href="#geo-10th-CMUSerif-Roman-66c"></use>
+    <use href="#geo-10th-CMUSerif-Roman-10" transform="translate(72.203125 0)"></use>
+    <use href="#geo-10th-CMUSerif-Roman-4e" transform="translate(122.203125 0)"></use>
+    <use href="#geo-10th-CMUSerif-Roman-50" transform="translate(205.5 0)"></use>
+    <use href="#geo-10th-CMUSerif-Roman-4f" transform="translate(255.5 0)"></use>
+    <use href="#geo-10th-CMUSerif-Roman-55" transform="translate(308.203125 0)"></use>
+    <use href="#geo-10th-CMUSerif-Roman-49" transform="translate(347 0)"></use>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clippath id="geo-10th-p59bd24bd67">
+   <rect x="47.52" y="5.04" width="448.40861" height="242.160469"></rect>
+  </clippath>
+ </defs>
+</svg>
+<div class="geo-table">
+<table class="caption-top" aria-label="10th percentile figures in euros per month">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">City</th>
+<th data-quarto-table-cell-role="th" scope="col">Left over</th>
+<th data-quarto-table-cell-role="th" scope="col">Cost of living</th>
+<th data-quarto-table-cell-role="th" scope="col">Taxes and<br>
+contributions</th>
+<th data-quarto-table-cell-role="th" scope="col">Gross pay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vaduz</th>
+<td>€2,576</td>
+<td>€3,083</td>
+<td>€782</td>
+<td>€6,442</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Zurich</th>
+<td>€996</td>
+<td>€4,258</td>
+<td>€1,188</td>
+<td>€6,442</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vienna</th>
+<td>€486</td>
+<td>€1,430</td>
+<td>€467</td>
+<td>€2,383</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Munich</th>
+<td>€343</td>
+<td>€2,510</td>
+<td>€1,672</td>
+<td>€4,525</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">London</th>
+<td>−€549</td>
+<td>€3,787</td>
+<td>€771</td>
+<td>€4,008</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Paris</th>
+<td>−€615</td>
+<td>€2,729</td>
+<td>€837</td>
+<td>€2,950</td>
+</tr>
+</tbody>
+</table>
+</div></section><section class="geo-panel" data-percentile="25th" aria-label="25th percentile" hidden=""><svg aria-hidden="true" xlink="http://www.w3.org/1999/xlink" width="504pt" height="288pt" viewbox="0 0 504 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:agent>
+    </dc:creator>
+   </cc:work>
+  </rdf:rdf>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="geo-25th-figure_1">
+  <g id="geo-25th-patch_1">
+   <path d="M 0 288 
+L 504 288 
+L 504 0 
+L 0 0 
+z
+" style="fill: #ffffff"></path>
+  </g>
+  <g id="geo-25th-axes_1">
+   <g id="geo-25th-matplotlib.axis_1">
+    <g id="geo-25th-xtick_1">
+     <g id="geo-25th-line2d_1">
+      <path d="M 47.52 247.200469 
+L 47.52 5.04 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-25th-text_1">
+      <!-- €0 -->
+      <g style="fill: #26211e" transform="translate(40.187812 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-66c" d="M 13 1856 
+C 13 1786 83 1779 154 1779 
+L 755 1779 
+C 979 646 1946 0 2906 0 
+C 3366 0 3782 147 4122 371 
+C 4403 563 4416 614 4416 730 
+L 4416 909 
+C 4416 1005 4390 1037 4352 1037 
+C 4314 1037 4269 998 4224 960 
+C 3898 685 3430 486 2906 486 
+C 2150 486 1459 973 1248 1779 
+L 3437 1779 
+C 3526 1779 3565 1792 3622 1920 
+C 3642 1958 3648 1990 3648 2016 
+C 3648 2067 3616 2086 3507 2086 
+L 1203 2086 
+L 1203 2285 
+L 3610 2285 
+C 3667 2285 3718 2278 3763 2304 
+C 3834 2342 3872 2496 3872 2522 
+C 3872 2566 3840 2586 3744 2592 
+L 1248 2592 
+C 1453 3373 2131 3891 2899 3891 
+C 3738 3891 4096 3354 4198 3354 
+C 4282 3354 4390 3635 4390 3731 
+L 4390 3750 
+C 4301 3917 3667 4371 2899 4371 
+C 1984 4371 986 3763 755 2592 
+L 218 2592 
+C 32 2586 13 2362 13 2362 
+C 13 2298 83 2285 147 2285 
+L 717 2285 
+L 717 2086 
+L 211 2086 
+C 32 2086 13 1856 13 1856 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-11" d="M 250 2048 
+C 250 1568 275 992 538 506 
+C 813 -13 1280 -141 1594 -141 
+C 1939 -141 2426 -6 2707 602 
+C 2912 1043 2944 1542 2944 2048 
+C 2944 2560 2912 3072 2688 3546 
+C 2394 4160 1869 4262 1600 4262 
+C 1216 4262 749 4096 486 3501 
+C 282 3059 250 2560 250 2048 
+z
+M 781 2125 
+C 781 2534 781 2957 832 3302 
+C 954 4064 1434 4122 1594 4122 
+C 1805 4122 2227 4006 2349 3373 
+C 2413 3014 2413 2528 2413 2125 
+C 2413 1645 2413 1210 2342 800 
+C 2246 192 1882 0 1594 0 
+C 1344 0 966 160 851 774 
+C 781 1158 781 1747 781 2125 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-25th-CMUSerif-Roman-11" transform="translate(72.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-xtick_2">
+     <g id="geo-25th-line2d_2">
+      <path d="M 135.339939 247.200469 
+L 135.339939 5.04 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-25th-text_2">
+      <!-- €5k -->
+      <g style="fill: #26211e" transform="translate(124.845564 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-16" d="M 320 1030 
+C 320 480 762 -141 1478 -141 
+C 2221 -141 2874 474 2874 1286 
+C 2874 2048 2349 2688 1658 2688 
+C 1350 2688 1075 2586 845 2362 
+L 845 3610 
+C 973 3571 1184 3526 1389 3526 
+C 2176 3526 2624 4109 2624 4192 
+C 2624 4230 2605 4262 2560 4262 
+C 2554 4262 2541 4262 2509 4243 
+C 2381 4186 2067 4058 1638 4058 
+C 1382 4058 1088 4102 787 4237 
+C 736 4256 723 4256 710 4256 
+C 646 4256 646 4205 646 4102 
+L 646 2208 
+C 646 2093 646 2042 736 2042 
+C 781 2042 794 2061 819 2099 
+C 890 2202 1126 2547 1645 2547 
+C 1978 2547 2138 2253 2189 2138 
+C 2291 1901 2304 1651 2304 1331 
+C 2304 1107 2304 723 2150 454 
+C 1997 205 1760 38 1466 38 
+C 998 38 634 378 525 755 
+C 544 749 563 742 634 742 
+C 845 742 954 902 954 1056 
+C 954 1210 845 1370 634 1370 
+C 544 1370 320 1325 320 1030 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-4c" d="M 179 0 
+C 390 6 691 19 877 19 
+C 1069 19 1325 13 1581 0 
+L 1581 198 
+C 1152 198 1082 198 1082 486 
+L 1082 1146 
+L 1491 1498 
+C 1984 819 2253 461 2253 346 
+C 2253 224 2144 198 2022 198 
+L 2022 0 
+C 2202 6 2579 19 2714 19 
+C 2899 19 3085 13 3270 0 
+L 3270 198 
+C 3034 198 2893 198 2650 538 
+L 1837 1683 
+C 1830 1696 1798 1734 1798 1754 
+C 1798 1779 2253 2163 2317 2214 
+C 2720 2541 2989 2554 3123 2560 
+L 3123 2758 
+C 2938 2739 2854 2739 2675 2739 
+C 2445 2739 2048 2752 1958 2758 
+L 1958 2560 
+C 2080 2554 2144 2483 2144 2400 
+C 2144 2272 2054 2195 2003 2150 
+L 1101 1370 
+L 1101 4442 
+L 179 4371 
+L 179 4173 
+C 627 4173 678 4128 678 3814 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-25th-CMUSerif-Roman-16" transform="translate(72.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4c" transform="translate(122.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-xtick_3">
+     <g id="geo-25th-line2d_3">
+      <path d="M 223.159878 247.200469 
+L 223.159878 5.04 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-25th-text_3">
+      <!-- €10k -->
+      <g style="fill: #26211e" transform="translate(209.665503 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-12" d="M 570 3654 
+C 698 3654 1075 3654 1408 3821 
+L 1408 506 
+C 1408 275 1389 198 813 198 
+L 608 198 
+L 608 0 
+C 832 19 1389 19 1645 19 
+C 1901 19 2458 19 2682 0 
+L 2682 198 
+L 2477 198 
+C 1901 198 1882 269 1882 506 
+L 1882 4096 
+C 1882 4250 1882 4262 1734 4262 
+C 1338 3853 774 3853 570 3853 
+L 570 3654 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-25th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-xtick_4">
+     <g id="geo-25th-line2d_4">
+      <path d="M 310.979818 247.200469 
+L 310.979818 5.04 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-25th-text_4">
+      <!-- €15k -->
+      <g style="fill: #26211e" transform="translate(297.485443 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-25th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-xtick_5">
+     <g id="geo-25th-line2d_5">
+      <path d="M 398.799757 247.200469 
+L 398.799757 5.04 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-25th-text_5">
+      <!-- €20k -->
+      <g style="fill: #26211e" transform="translate(385.305382 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-13" d="M 320 0 
+L 2694 0 
+L 2874 1114 
+L 2714 1114 
+C 2682 922 2637 640 2573 544 
+C 2528 493 2106 493 1965 493 
+L 813 493 
+L 1491 1152 
+C 2490 2035 2874 2381 2874 3021 
+C 2874 3750 2298 4262 1517 4262 
+C 794 4262 320 3674 320 3104 
+C 320 2746 640 2746 659 2746 
+C 768 2746 992 2822 992 3085 
+C 992 3251 877 3418 653 3418 
+C 602 3418 589 3418 570 3411 
+C 717 3827 1062 4064 1434 4064 
+C 2016 4064 2291 3546 2291 3021 
+C 2291 2509 1971 2003 1619 1606 
+L 390 237 
+C 320 166 320 154 320 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-25th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-xtick_6">
+     <g id="geo-25th-line2d_6">
+      <path d="M 486.619696 247.200469 
+L 486.619696 5.04 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-25th-text_6">
+      <!-- €25k -->
+      <g style="fill: #26211e" transform="translate(473.125321 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-25th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-xtick_7"></g>
+    <g id="geo-25th-xtick_8"></g>
+    <g id="geo-25th-xtick_9"></g>
+    <g id="geo-25th-xtick_10"></g>
+    <g id="geo-25th-xtick_11"></g>
+   </g>
+   <g id="geo-25th-matplotlib.axis_2">
+    <g id="geo-25th-ytick_1">
+     <g id="geo-25th-text_7">
+      <!-- Paris -->
+      <g style="fill: #26211e" transform="translate(17.95125 227.306347) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-31" d="M 224 0 
+C 448 19 922 19 1165 19 
+C 1408 19 1888 19 2112 0 
+L 2112 198 
+L 1958 198 
+C 1466 198 1453 269 1453 499 
+L 1453 2022 
+L 2534 2022 
+C 3302 2022 3994 2541 3994 3181 
+C 3994 3808 3360 4371 2483 4371 
+L 224 4371 
+L 224 4173 
+L 378 4173 
+C 870 4173 883 4102 883 3872 
+L 883 499 
+C 883 269 870 198 378 198 
+L 224 198 
+L 224 0 
+z
+M 1434 2189 
+L 1434 3917 
+C 1434 4128 1446 4173 1747 4173 
+L 2317 4173 
+C 3334 4173 3334 3494 3334 3181 
+C 3334 2880 3334 2189 2317 2189 
+L 1434 2189 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-42" d="M 269 608 
+C 269 90 890 -70 1293 -70 
+C 1715 -70 2010 186 2131 486 
+C 2157 230 2330 -38 2630 -38 
+C 2765 -38 3155 51 3155 570 
+L 3155 928 
+L 2995 928 
+L 2995 570 
+C 2995 198 2835 160 2765 160 
+C 2554 160 2528 448 2528 480 
+L 2528 1760 
+C 2528 2029 2528 2278 2298 2515 
+C 2048 2765 1728 2867 1421 2867 
+C 896 2867 454 2566 454 2144 
+C 454 1952 582 1843 749 1843 
+C 928 1843 1043 1971 1043 2138 
+C 1043 2214 1011 2426 717 2432 
+C 890 2656 1203 2726 1408 2726 
+C 1722 2726 2086 2477 2086 1907 
+L 2086 1670 
+C 1760 1651 1312 1632 909 1440 
+C 429 1222 269 890 269 608 
+z
+M 762 614 
+C 762 966 1030 1498 2086 1536 
+L 2086 896 
+C 2086 288 1626 70 1338 70 
+C 1024 70 762 294 762 614 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-53" d="M 179 0 
+C 429 6 730 19 909 19 
+C 1165 19 1466 19 1722 0 
+L 1722 198 
+L 1587 198 
+C 1114 198 1101 269 1101 499 
+L 1101 1485 
+C 1101 2118 1370 2688 1856 2688 
+C 1901 2688 1914 2688 1926 2682 
+C 1907 2675 1779 2598 1779 2432 
+C 1779 2253 1914 2157 2054 2157 
+C 2170 2157 2330 2234 2330 2438 
+C 2330 2643 2131 2829 1856 2829 
+C 1389 2829 1158 2400 1069 2125 
+L 1069 2829 
+L 179 2758 
+L 179 2560 
+C 627 2560 678 2515 678 2202 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-4a" d="M 480 3942 
+C 480 3770 621 3603 819 3603 
+C 998 3603 1158 3738 1158 3942 
+C 1158 4147 998 4282 819 4282 
+C 621 4282 480 4109 480 3942 
+z
+M 211 0 
+C 416 6 762 19 915 19 
+C 1139 19 1363 6 1581 0 
+L 1581 198 
+C 1158 198 1133 230 1133 480 
+L 1133 2829 
+L 237 2758 
+L 237 2560 
+C 653 2560 710 2522 710 2208 
+L 710 486 
+C 710 198 640 198 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-54" d="M 211 83 
+C 211 -26 211 -70 282 -70 
+C 314 -70 320 -64 442 58 
+C 454 70 454 83 570 205 
+C 851 -64 1139 -70 1274 -70 
+C 2010 -70 2304 358 2304 819 
+C 2304 1158 2112 1350 2035 1427 
+C 1824 1632 1574 1683 1306 1734 
+C 947 1805 518 1888 518 2259 
+C 518 2483 685 2746 1235 2746 
+C 1939 2746 1971 2170 1984 1971 
+C 1990 1914 2048 1914 2061 1914 
+C 2144 1914 2144 1946 2144 2067 
+L 2144 2714 
+C 2144 2822 2144 2867 2074 2867 
+C 2042 2867 2029 2867 1946 2790 
+C 1926 2765 1862 2707 1837 2688 
+C 1594 2867 1331 2867 1235 2867 
+C 454 2867 211 2438 211 2080 
+C 211 1856 314 1677 486 1536 
+C 691 1370 870 1331 1331 1242 
+C 1472 1216 1997 1114 1997 653 
+C 1997 326 1773 70 1274 70 
+C 736 70 506 435 384 979 
+C 365 1062 358 1088 294 1088 
+C 211 1088 211 1043 211 928 
+L 211 83 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-31"></use>
+       <use href="#geo-25th-CMUSerif-Roman-42" transform="translate(65.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-53" transform="translate(115.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4a" transform="translate(154.296875 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-54" transform="translate(182 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-ytick_2">
+     <g id="geo-25th-text_8">
+      <!-- London -->
+      <g style="fill: #26211e" transform="translate(5.04 188.751902) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-2d" d="M 211 0 
+L 3546 0 
+L 3725 1651 
+L 3565 1651 
+C 3494 998 3405 198 2278 198 
+L 1754 198 
+C 1453 198 1440 243 1440 454 
+L 1440 3866 
+C 1440 4083 1440 4173 2048 4173 
+L 2259 4173 
+L 2259 4371 
+C 2029 4352 1446 4352 1184 4352 
+C 934 4352 435 4352 211 4371 
+L 211 4173 
+L 365 4173 
+C 858 4173 870 4102 870 3872 
+L 870 499 
+C 870 269 858 198 365 198 
+L 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-50" d="M 179 1370 
+C 179 544 845 -70 1594 -70 
+C 2368 -70 3014 557 3014 1370 
+C 3014 2189 2374 2867 1600 2867 
+C 800 2867 179 2170 179 1370 
+z
+M 710 1421 
+C 710 1670 710 2016 864 2298 
+C 1037 2592 1338 2726 1594 2726 
+C 1875 2726 2150 2586 2317 2310 
+C 2483 2035 2483 1664 2483 1421 
+C 2483 1190 2483 845 2342 563 
+C 2202 275 1920 90 1600 90 
+C 1325 90 1043 224 870 518 
+C 710 800 710 1190 710 1421 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-4f" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-45" d="M 218 1376 
+C 218 563 845 -70 1574 -70 
+C 1984 -70 2272 147 2432 352 
+L 2432 -70 
+L 3373 0 
+L 3373 198 
+C 2925 198 2874 243 2874 557 
+L 2874 4442 
+L 1952 4371 
+L 1952 4173 
+C 2400 4173 2451 4128 2451 3814 
+L 2451 2432 
+C 2266 2662 1990 2829 1645 2829 
+C 890 2829 218 2202 218 1376 
+z
+M 749 1370 
+C 749 1606 762 1990 947 2278 
+C 1082 2477 1325 2688 1670 2688 
+C 1894 2688 2163 2592 2362 2304 
+C 2432 2195 2432 2182 2432 2067 
+L 2432 755 
+C 2432 640 2432 627 2362 518 
+C 2170 211 1882 70 1606 70 
+C 1318 70 1088 237 934 480 
+C 768 742 749 1107 749 1370 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-2d"></use>
+       <use href="#geo-25th-CMUSerif-Roman-50" transform="translate(62.5 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4f" transform="translate(112.5 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-45" transform="translate(168 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-50" transform="translate(223.5 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4f" transform="translate(273.5 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-ytick_3">
+     <g id="geo-25th-text_9">
+      <!-- Munich -->
+      <g style="fill: #26211e" transform="translate(5.23125 150.197457) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-2e" d="M 237 0 
+C 461 6 774 19 986 19 
+C 1197 19 1510 6 1734 0 
+L 1734 198 
+C 1075 198 1075 499 1075 672 
+L 1075 4122 
+L 1082 4122 
+L 2624 141 
+C 2656 58 2688 0 2752 0 
+C 2822 0 2842 51 2867 122 
+L 4442 4173 
+L 4448 4173 
+L 4448 499 
+C 4448 269 4435 198 3942 198 
+L 3789 198 
+L 3789 0 
+C 4026 19 4461 19 4710 19 
+C 4960 19 5389 19 5626 0 
+L 5626 198 
+L 5472 198 
+C 4979 198 4966 269 4966 499 
+L 4966 3872 
+C 4966 4102 4979 4173 5472 4173 
+L 5626 4173 
+L 5626 4371 
+L 4544 4371 
+C 4378 4371 4378 4365 4333 4250 
+L 2931 646 
+L 1542 4230 
+C 1485 4371 1466 4371 1318 4371 
+L 237 4371 
+L 237 4173 
+L 390 4173 
+C 883 4173 896 4102 896 3872 
+L 896 672 
+C 896 499 896 198 237 198 
+L 237 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-56" d="M 205 2560 
+C 704 2560 704 2541 704 1971 
+L 704 1011 
+C 704 512 704 -70 1677 -70 
+C 2035 -70 2317 109 2502 506 
+L 2502 -70 
+L 3424 0 
+L 3424 198 
+C 2976 198 2925 243 2925 557 
+L 2925 2829 
+L 1984 2758 
+L 1984 2560 
+C 2432 2560 2483 2515 2483 2202 
+L 2483 1062 
+C 2483 506 2176 70 1709 70 
+C 1171 70 1146 371 1146 704 
+L 1146 2829 
+L 205 2758 
+L 205 2560 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-44" d="M 218 1382 
+C 218 563 851 -70 1594 -70 
+C 2451 -70 2656 698 2656 762 
+C 2656 826 2592 826 2573 826 
+C 2515 826 2502 800 2490 762 
+C 2304 166 1888 90 1651 90 
+C 1312 90 749 365 749 1395 
+C 749 2438 1274 2707 1613 2707 
+C 1670 2707 2074 2701 2298 2470 
+C 2035 2451 1997 2259 1997 2176 
+C 1997 2010 2112 1882 2291 1882 
+C 2458 1882 2586 1990 2586 2182 
+C 2586 2618 2099 2867 1606 2867 
+C 806 2867 218 2176 218 1382 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-49" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1517 2829 1235 2445 1133 2214 
+L 1126 2214 
+L 1126 4442 
+L 205 4371 
+L 205 4173 
+C 653 4173 704 4128 704 3814 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-2e"></use>
+       <use href="#geo-25th-CMUSerif-Roman-56" transform="translate(91.59375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4f" transform="translate(147.09375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4a" transform="translate(202.59375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-44" transform="translate(230.296875 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-49" transform="translate(271.90625 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-ytick_4">
+     <g id="geo-25th-text_10">
+      <!-- Vienna -->
+      <g style="fill: #26211e" transform="translate(7.546875 111.643012) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-37" d="M 122 4173 
+C 538 4173 659 4173 749 3930 
+L 2234 0 
+C 2278 -122 2310 -141 2394 -141 
+C 2502 -141 2515 -109 2547 -19 
+L 3974 3744 
+C 4064 3981 4237 4166 4672 4173 
+L 4672 4371 
+C 4474 4358 4218 4352 4051 4352 
+C 3859 4352 3488 4365 3322 4371 
+L 3322 4173 
+C 3654 4166 3789 4000 3789 3853 
+C 3789 3802 3770 3763 3757 3725 
+L 2586 640 
+L 1363 3872 
+C 1325 3962 1325 3974 1325 3987 
+C 1325 4173 1690 4173 1850 4173 
+L 1850 4371 
+C 1619 4352 1178 4352 934 4352 
+C 627 4352 352 4365 122 4371 
+L 122 4173 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-25th-CMUSerif-Roman-46" d="M 179 1408 
+C 179 550 851 -70 1587 -70 
+C 2368 -70 2656 640 2656 762 
+C 2656 826 2605 838 2573 838 
+C 2515 838 2502 800 2490 749 
+C 2266 90 1690 90 1626 90 
+C 1306 90 1050 282 902 518 
+C 710 826 710 1248 710 1478 
+L 2496 1478 
+C 2637 1478 2656 1478 2656 1613 
+C 2656 2246 2310 2867 1510 2867 
+C 768 2867 179 2208 179 1408 
+z
+M 717 1613 
+C 755 2566 1293 2726 1510 2726 
+C 2170 2726 2234 1862 2234 1613 
+L 717 1613 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-37"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4a" transform="translate(75 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-46" transform="translate(102.703125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4f" transform="translate(147.109375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4f" transform="translate(202.609375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-42" transform="translate(258.109375 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-ytick_5">
+     <g id="geo-25th-text_11">
+      <!-- Zurich -->
+      <g style="fill: #26211e" transform="translate(10.86 73.088567) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-3b" d="M 358 109 
+C 358 0 390 0 525 0 
+L 3475 0 
+L 3584 1709 
+L 3424 1709 
+C 3373 819 3251 218 2067 218 
+L 1018 218 
+L 3501 4147 
+C 3546 4218 3546 4224 3546 4269 
+C 3546 4371 3507 4371 3379 4371 
+L 512 4371 
+L 442 2931 
+L 602 2931 
+C 646 3654 838 4173 1888 4173 
+L 2893 4173 
+L 403 237 
+C 358 166 358 160 358 109 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-3b"></use>
+       <use href="#geo-25th-CMUSerif-Roman-56" transform="translate(61.09375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-53" transform="translate(116.59375 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-4a" transform="translate(155.6875 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-44" transform="translate(183.390625 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-49" transform="translate(225 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-ytick_6">
+     <g id="geo-25th-text_12">
+      <!-- Vaduz -->
+      <g style="fill: #26211e" transform="translate(11.866875 34.534122) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-25th-CMUSerif-Roman-5b" d="M 179 90 
+C 179 0 224 0 346 0 
+L 2458 0 
+L 2566 1197 
+L 2406 1197 
+C 2349 442 2214 160 1472 160 
+L 717 160 
+L 2496 2566 
+C 2554 2637 2554 2650 2554 2675 
+C 2554 2758 2502 2758 2387 2758 
+L 339 2758 
+L 269 1728 
+L 429 1728 
+C 467 2381 589 2618 1293 2618 
+L 2022 2618 
+L 237 205 
+C 179 134 179 122 179 90 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-25th-CMUSerif-Roman-37"></use>
+       <use href="#geo-25th-CMUSerif-Roman-42" transform="translate(66.703125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-45" transform="translate(116.703125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-56" transform="translate(172.203125 0)"></use>
+       <use href="#geo-25th-CMUSerif-Roman-5b" transform="translate(227.703125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-25th-ytick_7"></g>
+    <g id="geo-25th-ytick_8"></g>
+    <g id="geo-25th-ytick_9"></g>
+    <g id="geo-25th-ytick_10"></g>
+    <g id="geo-25th-ytick_11"></g>
+    <g id="geo-25th-ytick_12"></g>
+    <g id="geo-25th-ytick_13"></g>
+   </g>
+   <g id="geo-25th-PolyCollection_1">
+    <path d="M 47.52 233.687136 
+L 47.52 211.325558 
+L 90.898659 211.325558 
+L 90.898659 233.687136 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #a6cee3"></path>
+    <path d="M 90.898659 233.687136 
+L 90.898659 211.325558 
+L 111.335823 211.325558 
+L 111.335823 233.687136 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #356798"></path>
+    <path d="M 47.52 195.132691 
+L 47.52 172.771113 
+L 55.571273 172.771113 
+L 55.571273 195.132691 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #b2df8a"></path>
+    <path d="M 55.571273 195.132691 
+L 55.571273 172.771113 
+L 122.082056 172.771113 
+L 122.082056 195.132691 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #a6cee3"></path>
+    <path d="M 122.082056 195.132691 
+L 122.082056 172.771113 
+L 144.121933 172.771113 
+L 144.121933 195.132691 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #356798"></path>
+    <path d="M 47.52 156.578246 
+L 47.52 134.216668 
+L 61.888806 134.216668 
+L 61.888806 156.578246 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #b2df8a"></path>
+    <path d="M 61.888806 156.578246 
+L 61.888806 134.216668 
+L 105.974415 134.216668 
+L 105.974415 156.578246 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #a6cee3"></path>
+    <path d="M 105.974415 156.578246 
+L 105.974415 134.216668 
+L 143.682833 134.216668 
+L 143.682833 156.578246 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #356798"></path>
+    <path d="M 47.52 118.023801 
+L 47.52 95.662223 
+L 68.763643 95.662223 
+L 68.763643 118.023801 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #b2df8a"></path>
+    <path d="M 68.763643 118.023801 
+L 68.763643 95.662223 
+L 93.880146 95.662223 
+L 93.880146 118.023801 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #a6cee3"></path>
+    <path d="M 93.880146 118.023801 
+L 93.880146 95.662223 
+L 110.457623 95.662223 
+L 110.457623 118.023801 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #356798"></path>
+    <path d="M 47.52 79.469356 
+L 47.52 57.107778 
+L 89.735045 57.107778 
+L 89.735045 79.469356 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #b2df8a"></path>
+    <path d="M 89.735045 79.469356 
+L 89.735045 57.107778 
+L 164.522505 57.107778 
+L 164.522505 79.469356 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #a6cee3"></path>
+    <path d="M 164.522505 79.469356 
+L 164.522505 57.107778 
+L 195.350231 57.107778 
+L 195.350231 79.469356 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #356798"></path>
+    <path d="M 47.52 40.914911 
+L 47.52 18.553333 
+L 122.066248 18.553333 
+L 122.066248 40.914911 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #b2df8a"></path>
+    <path d="M 122.066248 40.914911 
+L 122.066248 18.553333 
+L 176.223048 18.553333 
+L 176.223048 40.914911 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #a6cee3"></path>
+    <path d="M 176.223048 40.914911 
+L 176.223048 18.553333 
+L 195.350231 18.553333 
+L 195.350231 40.914911 
+z
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: #356798"></path>
+   </g>
+   <g id="geo-25th-LineCollection_1">
+    <path d="M 111.335823 236.193175 
+L 111.335823 208.819519 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 144.121933 197.63873 
+L 144.121933 170.265074 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 143.682833 159.084285 
+L 143.682833 131.710629 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 110.457623 120.52984 
+L 110.457623 93.156184 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 195.350231 81.975395 
+L 195.350231 54.601739 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 195.350231 43.42095 
+L 195.350231 16.047294 
+" clip-path="url(#geo-25th-pb4839d1465)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+   </g>
+  </g>
+  <g id="geo-25th-text_13">
+   <!-- €/month -->
+   <g style="fill: #26211e" transform="translate(241.536805 279.240469) scale(0.15 -0.15)">
+    <defs>
+     <path id="geo-25th-CMUSerif-Roman-10" d="M 365 -1510 
+C 365 -1549 384 -1587 422 -1587 
+C 474 -1587 493 -1555 544 -1414 
+L 2810 4627 
+C 2816 4653 2829 4685 2829 4710 
+C 2829 4762 2790 4787 2765 4787 
+C 2694 4787 2669 4672 2650 4627 
+L 390 -1408 
+C 365 -1478 365 -1491 365 -1510 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-25th-CMUSerif-Roman-4e" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 2995 198 2925 198 2925 486 
+L 2925 1664 
+C 2925 2330 3379 2688 3789 2688 
+C 4192 2688 4262 2342 4262 1978 
+L 4262 486 
+C 4262 198 4192 198 3763 198 
+L 3763 0 
+C 3987 6 4314 19 4486 19 
+C 4653 19 4986 6 5203 0 
+L 5203 198 
+C 4870 198 4710 198 4704 390 
+L 4704 1613 
+C 4704 2163 4704 2362 4506 2592 
+C 4416 2701 4205 2829 3834 2829 
+C 3296 2829 3014 2445 2906 2202 
+C 2816 2758 2342 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-25th-CMUSerif-Roman-55" d="M 122 2560 
+L 666 2560 
+L 666 794 
+C 666 6 1261 -70 1491 -70 
+C 1946 -70 2125 384 2125 794 
+L 2125 1158 
+L 1965 1158 
+L 1965 806 
+C 1965 333 1773 90 1536 90 
+C 1107 90 1107 672 1107 781 
+L 1107 2560 
+L 2022 2560 
+L 2022 2758 
+L 1107 2758 
+L 1107 3936 
+L 947 3936 
+C 941 3411 749 2726 122 2701 
+L 122 2560 
+z
+" transform="scale(0.015625)"></path>
+    </defs>
+    <use href="#geo-25th-CMUSerif-Roman-66c"></use>
+    <use href="#geo-25th-CMUSerif-Roman-10" transform="translate(72.203125 0)"></use>
+    <use href="#geo-25th-CMUSerif-Roman-4e" transform="translate(122.203125 0)"></use>
+    <use href="#geo-25th-CMUSerif-Roman-50" transform="translate(205.5 0)"></use>
+    <use href="#geo-25th-CMUSerif-Roman-4f" transform="translate(255.5 0)"></use>
+    <use href="#geo-25th-CMUSerif-Roman-55" transform="translate(308.203125 0)"></use>
+    <use href="#geo-25th-CMUSerif-Roman-49" transform="translate(347 0)"></use>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clippath id="geo-25th-pb4839d1465">
+   <rect x="47.52" y="5.04" width="448.40861" height="242.160469"></rect>
+  </clippath>
+ </defs>
+</svg>
+<div class="geo-table">
+<table class="caption-top" aria-label="25th percentile figures in euros per month">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">City</th>
+<th data-quarto-table-cell-role="th" scope="col">Left over</th>
+<th data-quarto-table-cell-role="th" scope="col">Cost of living</th>
+<th data-quarto-table-cell-role="th" scope="col">Taxes and<br>
+contributions</th>
+<th data-quarto-table-cell-role="th" scope="col">Gross pay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vaduz</th>
+<td>€4,244</td>
+<td>€3,083</td>
+<td>€1,089</td>
+<td>€8,417</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Zurich</th>
+<td>€2,404</td>
+<td>€4,258</td>
+<td>€1,755</td>
+<td>€8,417</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vienna</th>
+<td>€1,210</td>
+<td>€1,430</td>
+<td>€944</td>
+<td>€3,583</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Munich</th>
+<td>€818</td>
+<td>€2,510</td>
+<td>€2,147</td>
+<td>€5,475</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">London</th>
+<td>€458</td>
+<td>€3,787</td>
+<td>€1,255</td>
+<td>€5,500</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Paris</th>
+<td>−€259</td>
+<td>€2,729</td>
+<td>€1,164</td>
+<td>€3,633</td>
+</tr>
+</tbody>
+</table>
+</div></section><section class="geo-panel" data-percentile="50th" aria-label="50th percentile"><svg aria-hidden="true" xlink="http://www.w3.org/1999/xlink" width="504pt" height="288pt" viewbox="0 0 504 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:agent>
+    </dc:creator>
+   </cc:work>
+  </rdf:rdf>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="geo-50th-figure_1">
+  <g id="geo-50th-patch_1">
+   <path d="M 0 288 
+L 504 288 
+L 504 0 
+L 0 0 
+z
+" style="fill: #ffffff"></path>
+  </g>
+  <g id="geo-50th-axes_1">
+   <g id="geo-50th-matplotlib.axis_1">
+    <g id="geo-50th-xtick_1">
+     <g id="geo-50th-line2d_1">
+      <path d="M 47.52 247.200469 
+L 47.52 5.04 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-50th-text_1">
+      <!-- €0 -->
+      <g style="fill: #26211e" transform="translate(40.187812 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-66c" d="M 13 1856 
+C 13 1786 83 1779 154 1779 
+L 755 1779 
+C 979 646 1946 0 2906 0 
+C 3366 0 3782 147 4122 371 
+C 4403 563 4416 614 4416 730 
+L 4416 909 
+C 4416 1005 4390 1037 4352 1037 
+C 4314 1037 4269 998 4224 960 
+C 3898 685 3430 486 2906 486 
+C 2150 486 1459 973 1248 1779 
+L 3437 1779 
+C 3526 1779 3565 1792 3622 1920 
+C 3642 1958 3648 1990 3648 2016 
+C 3648 2067 3616 2086 3507 2086 
+L 1203 2086 
+L 1203 2285 
+L 3610 2285 
+C 3667 2285 3718 2278 3763 2304 
+C 3834 2342 3872 2496 3872 2522 
+C 3872 2566 3840 2586 3744 2592 
+L 1248 2592 
+C 1453 3373 2131 3891 2899 3891 
+C 3738 3891 4096 3354 4198 3354 
+C 4282 3354 4390 3635 4390 3731 
+L 4390 3750 
+C 4301 3917 3667 4371 2899 4371 
+C 1984 4371 986 3763 755 2592 
+L 218 2592 
+C 32 2586 13 2362 13 2362 
+C 13 2298 83 2285 147 2285 
+L 717 2285 
+L 717 2086 
+L 211 2086 
+C 32 2086 13 1856 13 1856 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-11" d="M 250 2048 
+C 250 1568 275 992 538 506 
+C 813 -13 1280 -141 1594 -141 
+C 1939 -141 2426 -6 2707 602 
+C 2912 1043 2944 1542 2944 2048 
+C 2944 2560 2912 3072 2688 3546 
+C 2394 4160 1869 4262 1600 4262 
+C 1216 4262 749 4096 486 3501 
+C 282 3059 250 2560 250 2048 
+z
+M 781 2125 
+C 781 2534 781 2957 832 3302 
+C 954 4064 1434 4122 1594 4122 
+C 1805 4122 2227 4006 2349 3373 
+C 2413 3014 2413 2528 2413 2125 
+C 2413 1645 2413 1210 2342 800 
+C 2246 192 1882 0 1594 0 
+C 1344 0 966 160 851 774 
+C 781 1158 781 1747 781 2125 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-50th-CMUSerif-Roman-11" transform="translate(72.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-xtick_2">
+     <g id="geo-50th-line2d_2">
+      <path d="M 135.339939 247.200469 
+L 135.339939 5.04 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-50th-text_2">
+      <!-- €5k -->
+      <g style="fill: #26211e" transform="translate(124.845564 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-16" d="M 320 1030 
+C 320 480 762 -141 1478 -141 
+C 2221 -141 2874 474 2874 1286 
+C 2874 2048 2349 2688 1658 2688 
+C 1350 2688 1075 2586 845 2362 
+L 845 3610 
+C 973 3571 1184 3526 1389 3526 
+C 2176 3526 2624 4109 2624 4192 
+C 2624 4230 2605 4262 2560 4262 
+C 2554 4262 2541 4262 2509 4243 
+C 2381 4186 2067 4058 1638 4058 
+C 1382 4058 1088 4102 787 4237 
+C 736 4256 723 4256 710 4256 
+C 646 4256 646 4205 646 4102 
+L 646 2208 
+C 646 2093 646 2042 736 2042 
+C 781 2042 794 2061 819 2099 
+C 890 2202 1126 2547 1645 2547 
+C 1978 2547 2138 2253 2189 2138 
+C 2291 1901 2304 1651 2304 1331 
+C 2304 1107 2304 723 2150 454 
+C 1997 205 1760 38 1466 38 
+C 998 38 634 378 525 755 
+C 544 749 563 742 634 742 
+C 845 742 954 902 954 1056 
+C 954 1210 845 1370 634 1370 
+C 544 1370 320 1325 320 1030 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-4c" d="M 179 0 
+C 390 6 691 19 877 19 
+C 1069 19 1325 13 1581 0 
+L 1581 198 
+C 1152 198 1082 198 1082 486 
+L 1082 1146 
+L 1491 1498 
+C 1984 819 2253 461 2253 346 
+C 2253 224 2144 198 2022 198 
+L 2022 0 
+C 2202 6 2579 19 2714 19 
+C 2899 19 3085 13 3270 0 
+L 3270 198 
+C 3034 198 2893 198 2650 538 
+L 1837 1683 
+C 1830 1696 1798 1734 1798 1754 
+C 1798 1779 2253 2163 2317 2214 
+C 2720 2541 2989 2554 3123 2560 
+L 3123 2758 
+C 2938 2739 2854 2739 2675 2739 
+C 2445 2739 2048 2752 1958 2758 
+L 1958 2560 
+C 2080 2554 2144 2483 2144 2400 
+C 2144 2272 2054 2195 2003 2150 
+L 1101 1370 
+L 1101 4442 
+L 179 4371 
+L 179 4173 
+C 627 4173 678 4128 678 3814 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-50th-CMUSerif-Roman-16" transform="translate(72.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4c" transform="translate(122.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-xtick_3">
+     <g id="geo-50th-line2d_3">
+      <path d="M 223.159878 247.200469 
+L 223.159878 5.04 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-50th-text_3">
+      <!-- €10k -->
+      <g style="fill: #26211e" transform="translate(209.665503 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-12" d="M 570 3654 
+C 698 3654 1075 3654 1408 3821 
+L 1408 506 
+C 1408 275 1389 198 813 198 
+L 608 198 
+L 608 0 
+C 832 19 1389 19 1645 19 
+C 1901 19 2458 19 2682 0 
+L 2682 198 
+L 2477 198 
+C 1901 198 1882 269 1882 506 
+L 1882 4096 
+C 1882 4250 1882 4262 1734 4262 
+C 1338 3853 774 3853 570 3853 
+L 570 3654 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-50th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-xtick_4">
+     <g id="geo-50th-line2d_4">
+      <path d="M 310.979818 247.200469 
+L 310.979818 5.04 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-50th-text_4">
+      <!-- €15k -->
+      <g style="fill: #26211e" transform="translate(297.485443 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-50th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-xtick_5">
+     <g id="geo-50th-line2d_5">
+      <path d="M 398.799757 247.200469 
+L 398.799757 5.04 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-50th-text_5">
+      <!-- €20k -->
+      <g style="fill: #26211e" transform="translate(385.305382 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-13" d="M 320 0 
+L 2694 0 
+L 2874 1114 
+L 2714 1114 
+C 2682 922 2637 640 2573 544 
+C 2528 493 2106 493 1965 493 
+L 813 493 
+L 1491 1152 
+C 2490 2035 2874 2381 2874 3021 
+C 2874 3750 2298 4262 1517 4262 
+C 794 4262 320 3674 320 3104 
+C 320 2746 640 2746 659 2746 
+C 768 2746 992 2822 992 3085 
+C 992 3251 877 3418 653 3418 
+C 602 3418 589 3418 570 3411 
+C 717 3827 1062 4064 1434 4064 
+C 2016 4064 2291 3546 2291 3021 
+C 2291 2509 1971 2003 1619 1606 
+L 390 237 
+C 320 166 320 154 320 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-50th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-xtick_6">
+     <g id="geo-50th-line2d_6">
+      <path d="M 486.619696 247.200469 
+L 486.619696 5.04 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-50th-text_6">
+      <!-- €25k -->
+      <g style="fill: #26211e" transform="translate(473.125321 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-50th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-xtick_7"></g>
+    <g id="geo-50th-xtick_8"></g>
+    <g id="geo-50th-xtick_9"></g>
+    <g id="geo-50th-xtick_10"></g>
+    <g id="geo-50th-xtick_11"></g>
+   </g>
+   <g id="geo-50th-matplotlib.axis_2">
+    <g id="geo-50th-ytick_1">
+     <g id="geo-50th-text_7">
+      <!-- Paris -->
+      <g style="fill: #26211e" transform="translate(17.95125 227.306347) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-31" d="M 224 0 
+C 448 19 922 19 1165 19 
+C 1408 19 1888 19 2112 0 
+L 2112 198 
+L 1958 198 
+C 1466 198 1453 269 1453 499 
+L 1453 2022 
+L 2534 2022 
+C 3302 2022 3994 2541 3994 3181 
+C 3994 3808 3360 4371 2483 4371 
+L 224 4371 
+L 224 4173 
+L 378 4173 
+C 870 4173 883 4102 883 3872 
+L 883 499 
+C 883 269 870 198 378 198 
+L 224 198 
+L 224 0 
+z
+M 1434 2189 
+L 1434 3917 
+C 1434 4128 1446 4173 1747 4173 
+L 2317 4173 
+C 3334 4173 3334 3494 3334 3181 
+C 3334 2880 3334 2189 2317 2189 
+L 1434 2189 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-42" d="M 269 608 
+C 269 90 890 -70 1293 -70 
+C 1715 -70 2010 186 2131 486 
+C 2157 230 2330 -38 2630 -38 
+C 2765 -38 3155 51 3155 570 
+L 3155 928 
+L 2995 928 
+L 2995 570 
+C 2995 198 2835 160 2765 160 
+C 2554 160 2528 448 2528 480 
+L 2528 1760 
+C 2528 2029 2528 2278 2298 2515 
+C 2048 2765 1728 2867 1421 2867 
+C 896 2867 454 2566 454 2144 
+C 454 1952 582 1843 749 1843 
+C 928 1843 1043 1971 1043 2138 
+C 1043 2214 1011 2426 717 2432 
+C 890 2656 1203 2726 1408 2726 
+C 1722 2726 2086 2477 2086 1907 
+L 2086 1670 
+C 1760 1651 1312 1632 909 1440 
+C 429 1222 269 890 269 608 
+z
+M 762 614 
+C 762 966 1030 1498 2086 1536 
+L 2086 896 
+C 2086 288 1626 70 1338 70 
+C 1024 70 762 294 762 614 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-53" d="M 179 0 
+C 429 6 730 19 909 19 
+C 1165 19 1466 19 1722 0 
+L 1722 198 
+L 1587 198 
+C 1114 198 1101 269 1101 499 
+L 1101 1485 
+C 1101 2118 1370 2688 1856 2688 
+C 1901 2688 1914 2688 1926 2682 
+C 1907 2675 1779 2598 1779 2432 
+C 1779 2253 1914 2157 2054 2157 
+C 2170 2157 2330 2234 2330 2438 
+C 2330 2643 2131 2829 1856 2829 
+C 1389 2829 1158 2400 1069 2125 
+L 1069 2829 
+L 179 2758 
+L 179 2560 
+C 627 2560 678 2515 678 2202 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-4a" d="M 480 3942 
+C 480 3770 621 3603 819 3603 
+C 998 3603 1158 3738 1158 3942 
+C 1158 4147 998 4282 819 4282 
+C 621 4282 480 4109 480 3942 
+z
+M 211 0 
+C 416 6 762 19 915 19 
+C 1139 19 1363 6 1581 0 
+L 1581 198 
+C 1158 198 1133 230 1133 480 
+L 1133 2829 
+L 237 2758 
+L 237 2560 
+C 653 2560 710 2522 710 2208 
+L 710 486 
+C 710 198 640 198 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-54" d="M 211 83 
+C 211 -26 211 -70 282 -70 
+C 314 -70 320 -64 442 58 
+C 454 70 454 83 570 205 
+C 851 -64 1139 -70 1274 -70 
+C 2010 -70 2304 358 2304 819 
+C 2304 1158 2112 1350 2035 1427 
+C 1824 1632 1574 1683 1306 1734 
+C 947 1805 518 1888 518 2259 
+C 518 2483 685 2746 1235 2746 
+C 1939 2746 1971 2170 1984 1971 
+C 1990 1914 2048 1914 2061 1914 
+C 2144 1914 2144 1946 2144 2067 
+L 2144 2714 
+C 2144 2822 2144 2867 2074 2867 
+C 2042 2867 2029 2867 1946 2790 
+C 1926 2765 1862 2707 1837 2688 
+C 1594 2867 1331 2867 1235 2867 
+C 454 2867 211 2438 211 2080 
+C 211 1856 314 1677 486 1536 
+C 691 1370 870 1331 1331 1242 
+C 1472 1216 1997 1114 1997 653 
+C 1997 326 1773 70 1274 70 
+C 736 70 506 435 384 979 
+C 365 1062 358 1088 294 1088 
+C 211 1088 211 1043 211 928 
+L 211 83 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-31"></use>
+       <use href="#geo-50th-CMUSerif-Roman-42" transform="translate(65.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-53" transform="translate(115.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4a" transform="translate(154.296875 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-54" transform="translate(182 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-ytick_2">
+     <g id="geo-50th-text_8">
+      <!-- Munich -->
+      <g style="fill: #26211e" transform="translate(5.23125 188.751902) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-2e" d="M 237 0 
+C 461 6 774 19 986 19 
+C 1197 19 1510 6 1734 0 
+L 1734 198 
+C 1075 198 1075 499 1075 672 
+L 1075 4122 
+L 1082 4122 
+L 2624 141 
+C 2656 58 2688 0 2752 0 
+C 2822 0 2842 51 2867 122 
+L 4442 4173 
+L 4448 4173 
+L 4448 499 
+C 4448 269 4435 198 3942 198 
+L 3789 198 
+L 3789 0 
+C 4026 19 4461 19 4710 19 
+C 4960 19 5389 19 5626 0 
+L 5626 198 
+L 5472 198 
+C 4979 198 4966 269 4966 499 
+L 4966 3872 
+C 4966 4102 4979 4173 5472 4173 
+L 5626 4173 
+L 5626 4371 
+L 4544 4371 
+C 4378 4371 4378 4365 4333 4250 
+L 2931 646 
+L 1542 4230 
+C 1485 4371 1466 4371 1318 4371 
+L 237 4371 
+L 237 4173 
+L 390 4173 
+C 883 4173 896 4102 896 3872 
+L 896 672 
+C 896 499 896 198 237 198 
+L 237 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-56" d="M 205 2560 
+C 704 2560 704 2541 704 1971 
+L 704 1011 
+C 704 512 704 -70 1677 -70 
+C 2035 -70 2317 109 2502 506 
+L 2502 -70 
+L 3424 0 
+L 3424 198 
+C 2976 198 2925 243 2925 557 
+L 2925 2829 
+L 1984 2758 
+L 1984 2560 
+C 2432 2560 2483 2515 2483 2202 
+L 2483 1062 
+C 2483 506 2176 70 1709 70 
+C 1171 70 1146 371 1146 704 
+L 1146 2829 
+L 205 2758 
+L 205 2560 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-4f" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-44" d="M 218 1382 
+C 218 563 851 -70 1594 -70 
+C 2451 -70 2656 698 2656 762 
+C 2656 826 2592 826 2573 826 
+C 2515 826 2502 800 2490 762 
+C 2304 166 1888 90 1651 90 
+C 1312 90 749 365 749 1395 
+C 749 2438 1274 2707 1613 2707 
+C 1670 2707 2074 2701 2298 2470 
+C 2035 2451 1997 2259 1997 2176 
+C 1997 2010 2112 1882 2291 1882 
+C 2458 1882 2586 1990 2586 2182 
+C 2586 2618 2099 2867 1606 2867 
+C 806 2867 218 2176 218 1382 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-49" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1517 2829 1235 2445 1133 2214 
+L 1126 2214 
+L 1126 4442 
+L 205 4371 
+L 205 4173 
+C 653 4173 704 4128 704 3814 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-2e"></use>
+       <use href="#geo-50th-CMUSerif-Roman-56" transform="translate(91.59375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4f" transform="translate(147.09375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4a" transform="translate(202.59375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-44" transform="translate(230.296875 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-49" transform="translate(271.90625 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-ytick_3">
+     <g id="geo-50th-text_9">
+      <!-- Vienna -->
+      <g style="fill: #26211e" transform="translate(7.546875 150.197457) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-37" d="M 122 4173 
+C 538 4173 659 4173 749 3930 
+L 2234 0 
+C 2278 -122 2310 -141 2394 -141 
+C 2502 -141 2515 -109 2547 -19 
+L 3974 3744 
+C 4064 3981 4237 4166 4672 4173 
+L 4672 4371 
+C 4474 4358 4218 4352 4051 4352 
+C 3859 4352 3488 4365 3322 4371 
+L 3322 4173 
+C 3654 4166 3789 4000 3789 3853 
+C 3789 3802 3770 3763 3757 3725 
+L 2586 640 
+L 1363 3872 
+C 1325 3962 1325 3974 1325 3987 
+C 1325 4173 1690 4173 1850 4173 
+L 1850 4371 
+C 1619 4352 1178 4352 934 4352 
+C 627 4352 352 4365 122 4371 
+L 122 4173 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-46" d="M 179 1408 
+C 179 550 851 -70 1587 -70 
+C 2368 -70 2656 640 2656 762 
+C 2656 826 2605 838 2573 838 
+C 2515 838 2502 800 2490 749 
+C 2266 90 1690 90 1626 90 
+C 1306 90 1050 282 902 518 
+C 710 826 710 1248 710 1478 
+L 2496 1478 
+C 2637 1478 2656 1478 2656 1613 
+C 2656 2246 2310 2867 1510 2867 
+C 768 2867 179 2208 179 1408 
+z
+M 717 1613 
+C 755 2566 1293 2726 1510 2726 
+C 2170 2726 2234 1862 2234 1613 
+L 717 1613 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-37"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4a" transform="translate(75 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-46" transform="translate(102.703125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4f" transform="translate(147.109375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4f" transform="translate(202.609375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-42" transform="translate(258.109375 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-ytick_4">
+     <g id="geo-50th-text_10">
+      <!-- London -->
+      <g style="fill: #26211e" transform="translate(5.04 111.643012) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-2d" d="M 211 0 
+L 3546 0 
+L 3725 1651 
+L 3565 1651 
+C 3494 998 3405 198 2278 198 
+L 1754 198 
+C 1453 198 1440 243 1440 454 
+L 1440 3866 
+C 1440 4083 1440 4173 2048 4173 
+L 2259 4173 
+L 2259 4371 
+C 2029 4352 1446 4352 1184 4352 
+C 934 4352 435 4352 211 4371 
+L 211 4173 
+L 365 4173 
+C 858 4173 870 4102 870 3872 
+L 870 499 
+C 870 269 858 198 365 198 
+L 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-50" d="M 179 1370 
+C 179 544 845 -70 1594 -70 
+C 2368 -70 3014 557 3014 1370 
+C 3014 2189 2374 2867 1600 2867 
+C 800 2867 179 2170 179 1370 
+z
+M 710 1421 
+C 710 1670 710 2016 864 2298 
+C 1037 2592 1338 2726 1594 2726 
+C 1875 2726 2150 2586 2317 2310 
+C 2483 2035 2483 1664 2483 1421 
+C 2483 1190 2483 845 2342 563 
+C 2202 275 1920 90 1600 90 
+C 1325 90 1043 224 870 518 
+C 710 800 710 1190 710 1421 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-50th-CMUSerif-Roman-45" d="M 218 1376 
+C 218 563 845 -70 1574 -70 
+C 1984 -70 2272 147 2432 352 
+L 2432 -70 
+L 3373 0 
+L 3373 198 
+C 2925 198 2874 243 2874 557 
+L 2874 4442 
+L 1952 4371 
+L 1952 4173 
+C 2400 4173 2451 4128 2451 3814 
+L 2451 2432 
+C 2266 2662 1990 2829 1645 2829 
+C 890 2829 218 2202 218 1376 
+z
+M 749 1370 
+C 749 1606 762 1990 947 2278 
+C 1082 2477 1325 2688 1670 2688 
+C 1894 2688 2163 2592 2362 2304 
+C 2432 2195 2432 2182 2432 2067 
+L 2432 755 
+C 2432 640 2432 627 2362 518 
+C 2170 211 1882 70 1606 70 
+C 1318 70 1088 237 934 480 
+C 768 742 749 1107 749 1370 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-2d"></use>
+       <use href="#geo-50th-CMUSerif-Roman-50" transform="translate(62.5 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4f" transform="translate(112.5 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-45" transform="translate(168 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-50" transform="translate(223.5 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4f" transform="translate(273.5 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-ytick_5">
+     <g id="geo-50th-text_11">
+      <!-- Zurich -->
+      <g style="fill: #26211e" transform="translate(10.86 73.088567) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-3b" d="M 358 109 
+C 358 0 390 0 525 0 
+L 3475 0 
+L 3584 1709 
+L 3424 1709 
+C 3373 819 3251 218 2067 218 
+L 1018 218 
+L 3501 4147 
+C 3546 4218 3546 4224 3546 4269 
+C 3546 4371 3507 4371 3379 4371 
+L 512 4371 
+L 442 2931 
+L 602 2931 
+C 646 3654 838 4173 1888 4173 
+L 2893 4173 
+L 403 237 
+C 358 166 358 160 358 109 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-3b"></use>
+       <use href="#geo-50th-CMUSerif-Roman-56" transform="translate(61.09375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-53" transform="translate(116.59375 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-4a" transform="translate(155.6875 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-44" transform="translate(183.390625 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-49" transform="translate(225 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-ytick_6">
+     <g id="geo-50th-text_12">
+      <!-- Vaduz -->
+      <g style="fill: #26211e" transform="translate(11.866875 34.534122) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-50th-CMUSerif-Roman-5b" d="M 179 90 
+C 179 0 224 0 346 0 
+L 2458 0 
+L 2566 1197 
+L 2406 1197 
+C 2349 442 2214 160 1472 160 
+L 717 160 
+L 2496 2566 
+C 2554 2637 2554 2650 2554 2675 
+C 2554 2758 2502 2758 2387 2758 
+L 339 2758 
+L 269 1728 
+L 429 1728 
+C 467 2381 589 2618 1293 2618 
+L 2022 2618 
+L 237 205 
+C 179 134 179 122 179 90 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-50th-CMUSerif-Roman-37"></use>
+       <use href="#geo-50th-CMUSerif-Roman-42" transform="translate(66.703125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-45" transform="translate(116.703125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-56" transform="translate(172.203125 0)"></use>
+       <use href="#geo-50th-CMUSerif-Roman-5b" transform="translate(227.703125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-50th-ytick_7"></g>
+    <g id="geo-50th-ytick_8"></g>
+    <g id="geo-50th-ytick_9"></g>
+    <g id="geo-50th-ytick_10"></g>
+    <g id="geo-50th-ytick_11"></g>
+    <g id="geo-50th-ytick_12"></g>
+    <g id="geo-50th-ytick_13"></g>
+   </g>
+   <g id="geo-50th-PolyCollection_1">
+    <path d="M 47.52 233.687136 
+L 47.52 211.325558 
+L 52.792709 211.325558 
+L 52.792709 233.687136 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #b2df8a"></path>
+    <path d="M 52.792709 233.687136 
+L 52.792709 211.325558 
+L 100.721319 211.325558 
+L 100.721319 233.687136 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #a6cee3"></path>
+    <path d="M 100.721319 233.687136 
+L 100.721319 211.325558 
+L 130.070743 211.325558 
+L 130.070743 233.687136 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #356798"></path>
+    <path d="M 47.52 195.132691 
+L 47.52 172.771113 
+L 71.11429 172.771113 
+L 71.11429 195.132691 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #b2df8a"></path>
+    <path d="M 71.11429 195.132691 
+L 71.11429 172.771113 
+L 115.1999 172.771113 
+L 115.1999 195.132691 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #a6cee3"></path>
+    <path d="M 115.1999 195.132691 
+L 115.1999 172.771113 
+L 164.905985 172.771113 
+L 164.905985 195.132691 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #356798"></path>
+    <path d="M 47.52 156.578246 
+L 47.52 134.216668 
+L 81.021843 134.216668 
+L 81.021843 156.578246 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #b2df8a"></path>
+    <path d="M 81.021843 156.578246 
+L 81.021843 134.216668 
+L 106.138346 134.216668 
+L 106.138346 156.578246 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #a6cee3"></path>
+    <path d="M 106.138346 156.578246 
+L 106.138346 134.216668 
+L 132.851708 134.216668 
+L 132.851708 156.578246 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #356798"></path>
+    <path d="M 47.52 118.023801 
+L 47.52 95.662223 
+L 83.159907 95.662223 
+L 83.159907 118.023801 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #b2df8a"></path>
+    <path d="M 83.159907 118.023801 
+L 83.159907 95.662223 
+L 149.67069 95.662223 
+L 149.67069 118.023801 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #a6cee3"></path>
+    <path d="M 149.67069 118.023801 
+L 149.67069 95.662223 
+L 191.691067 95.662223 
+L 191.691067 118.023801 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #356798"></path>
+    <path d="M 47.52 79.469356 
+L 47.52 57.107778 
+L 113.281034 57.107778 
+L 113.281034 79.469356 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #b2df8a"></path>
+    <path d="M 113.281034 79.469356 
+L 113.281034 57.107778 
+L 188.068494 57.107778 
+L 188.068494 79.469356 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #a6cee3"></path>
+    <path d="M 188.068494 79.469356 
+L 188.068494 57.107778 
+L 230.478207 57.107778 
+L 230.478207 79.469356 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #356798"></path>
+    <path d="M 47.52 40.914911 
+L 47.52 18.553333 
+L 150.976572 18.553333 
+L 150.976572 40.914911 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #b2df8a"></path>
+    <path d="M 150.976572 40.914911 
+L 150.976572 18.553333 
+L 205.133372 18.553333 
+L 205.133372 40.914911 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #a6cee3"></path>
+    <path d="M 205.133372 40.914911 
+L 205.133372 18.553333 
+L 230.478207 18.553333 
+L 230.478207 40.914911 
+z
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: #356798"></path>
+   </g>
+   <g id="geo-50th-LineCollection_1">
+    <path d="M 130.070743 236.193175 
+L 130.070743 208.819519 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 164.905985 197.63873 
+L 164.905985 170.265074 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 132.851708 159.084285 
+L 132.851708 131.710629 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 191.691067 120.52984 
+L 191.691067 93.156184 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 230.478207 81.975395 
+L 230.478207 54.601739 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 230.478207 43.42095 
+L 230.478207 16.047294 
+" clip-path="url(#geo-50th-p03ab919102)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+   </g>
+  </g>
+  <g id="geo-50th-text_13">
+   <!-- €/month -->
+   <g style="fill: #26211e" transform="translate(241.536805 279.240469) scale(0.15 -0.15)">
+    <defs>
+     <path id="geo-50th-CMUSerif-Roman-10" d="M 365 -1510 
+C 365 -1549 384 -1587 422 -1587 
+C 474 -1587 493 -1555 544 -1414 
+L 2810 4627 
+C 2816 4653 2829 4685 2829 4710 
+C 2829 4762 2790 4787 2765 4787 
+C 2694 4787 2669 4672 2650 4627 
+L 390 -1408 
+C 365 -1478 365 -1491 365 -1510 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-50th-CMUSerif-Roman-4e" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 2995 198 2925 198 2925 486 
+L 2925 1664 
+C 2925 2330 3379 2688 3789 2688 
+C 4192 2688 4262 2342 4262 1978 
+L 4262 486 
+C 4262 198 4192 198 3763 198 
+L 3763 0 
+C 3987 6 4314 19 4486 19 
+C 4653 19 4986 6 5203 0 
+L 5203 198 
+C 4870 198 4710 198 4704 390 
+L 4704 1613 
+C 4704 2163 4704 2362 4506 2592 
+C 4416 2701 4205 2829 3834 2829 
+C 3296 2829 3014 2445 2906 2202 
+C 2816 2758 2342 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-50th-CMUSerif-Roman-55" d="M 122 2560 
+L 666 2560 
+L 666 794 
+C 666 6 1261 -70 1491 -70 
+C 1946 -70 2125 384 2125 794 
+L 2125 1158 
+L 1965 1158 
+L 1965 806 
+C 1965 333 1773 90 1536 90 
+C 1107 90 1107 672 1107 781 
+L 1107 2560 
+L 2022 2560 
+L 2022 2758 
+L 1107 2758 
+L 1107 3936 
+L 947 3936 
+C 941 3411 749 2726 122 2701 
+L 122 2560 
+z
+" transform="scale(0.015625)"></path>
+    </defs>
+    <use href="#geo-50th-CMUSerif-Roman-66c"></use>
+    <use href="#geo-50th-CMUSerif-Roman-10" transform="translate(72.203125 0)"></use>
+    <use href="#geo-50th-CMUSerif-Roman-4e" transform="translate(122.203125 0)"></use>
+    <use href="#geo-50th-CMUSerif-Roman-50" transform="translate(205.5 0)"></use>
+    <use href="#geo-50th-CMUSerif-Roman-4f" transform="translate(255.5 0)"></use>
+    <use href="#geo-50th-CMUSerif-Roman-55" transform="translate(308.203125 0)"></use>
+    <use href="#geo-50th-CMUSerif-Roman-49" transform="translate(347 0)"></use>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clippath id="geo-50th-p03ab919102">
+   <rect x="47.52" y="5.04" width="448.40861" height="242.160469"></rect>
+  </clippath>
+ </defs>
+</svg>
+<div class="geo-table">
+<table class="caption-top" aria-label="50th percentile figures in euros per month">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">City</th>
+<th data-quarto-table-cell-role="th" scope="col">Left over</th>
+<th data-quarto-table-cell-role="th" scope="col">Cost of living</th>
+<th data-quarto-table-cell-role="th" scope="col">Taxes and<br>
+contributions</th>
+<th data-quarto-table-cell-role="th" scope="col">Gross pay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vaduz</th>
+<td>€5,890</td>
+<td>€3,083</td>
+<td>€1,443</td>
+<td>€10,417</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Zurich</th>
+<td>€3,744</td>
+<td>€4,258</td>
+<td>€2,415</td>
+<td>€10,417</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">London</th>
+<td>€2,029</td>
+<td>€3,787</td>
+<td>€2,392</td>
+<td>€8,208</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Vienna</th>
+<td>€1,907</td>
+<td>€1,430</td>
+<td>€1,521</td>
+<td>€4,858</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Munich</th>
+<td>€1,343</td>
+<td>€2,510</td>
+<td>€2,830</td>
+<td>€6,683</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Paris</th>
+<td>€300</td>
+<td>€2,729</td>
+<td>€1,671</td>
+<td>€4,700</td>
+</tr>
+</tbody>
+</table>
+</div></section><section class="geo-panel" data-percentile="75th" aria-label="75th percentile" hidden=""><svg aria-hidden="true" xlink="http://www.w3.org/1999/xlink" width="504pt" height="288pt" viewbox="0 0 504 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:agent>
+    </dc:creator>
+   </cc:work>
+  </rdf:rdf>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="geo-75th-figure_1">
+  <g id="geo-75th-patch_1">
+   <path d="M 0 288 
+L 504 288 
+L 504 0 
+L 0 0 
+z
+" style="fill: #ffffff"></path>
+  </g>
+  <g id="geo-75th-axes_1">
+   <g id="geo-75th-matplotlib.axis_1">
+    <g id="geo-75th-xtick_1">
+     <g id="geo-75th-line2d_1">
+      <path d="M 47.52 247.200469 
+L 47.52 5.04 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-75th-text_1">
+      <!-- €0 -->
+      <g style="fill: #26211e" transform="translate(40.187812 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-66c" d="M 13 1856 
+C 13 1786 83 1779 154 1779 
+L 755 1779 
+C 979 646 1946 0 2906 0 
+C 3366 0 3782 147 4122 371 
+C 4403 563 4416 614 4416 730 
+L 4416 909 
+C 4416 1005 4390 1037 4352 1037 
+C 4314 1037 4269 998 4224 960 
+C 3898 685 3430 486 2906 486 
+C 2150 486 1459 973 1248 1779 
+L 3437 1779 
+C 3526 1779 3565 1792 3622 1920 
+C 3642 1958 3648 1990 3648 2016 
+C 3648 2067 3616 2086 3507 2086 
+L 1203 2086 
+L 1203 2285 
+L 3610 2285 
+C 3667 2285 3718 2278 3763 2304 
+C 3834 2342 3872 2496 3872 2522 
+C 3872 2566 3840 2586 3744 2592 
+L 1248 2592 
+C 1453 3373 2131 3891 2899 3891 
+C 3738 3891 4096 3354 4198 3354 
+C 4282 3354 4390 3635 4390 3731 
+L 4390 3750 
+C 4301 3917 3667 4371 2899 4371 
+C 1984 4371 986 3763 755 2592 
+L 218 2592 
+C 32 2586 13 2362 13 2362 
+C 13 2298 83 2285 147 2285 
+L 717 2285 
+L 717 2086 
+L 211 2086 
+C 32 2086 13 1856 13 1856 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-11" d="M 250 2048 
+C 250 1568 275 992 538 506 
+C 813 -13 1280 -141 1594 -141 
+C 1939 -141 2426 -6 2707 602 
+C 2912 1043 2944 1542 2944 2048 
+C 2944 2560 2912 3072 2688 3546 
+C 2394 4160 1869 4262 1600 4262 
+C 1216 4262 749 4096 486 3501 
+C 282 3059 250 2560 250 2048 
+z
+M 781 2125 
+C 781 2534 781 2957 832 3302 
+C 954 4064 1434 4122 1594 4122 
+C 1805 4122 2227 4006 2349 3373 
+C 2413 3014 2413 2528 2413 2125 
+C 2413 1645 2413 1210 2342 800 
+C 2246 192 1882 0 1594 0 
+C 1344 0 966 160 851 774 
+C 781 1158 781 1747 781 2125 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-75th-CMUSerif-Roman-11" transform="translate(72.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-xtick_2">
+     <g id="geo-75th-line2d_2">
+      <path d="M 135.339939 247.200469 
+L 135.339939 5.04 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-75th-text_2">
+      <!-- €5k -->
+      <g style="fill: #26211e" transform="translate(124.845564 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-16" d="M 320 1030 
+C 320 480 762 -141 1478 -141 
+C 2221 -141 2874 474 2874 1286 
+C 2874 2048 2349 2688 1658 2688 
+C 1350 2688 1075 2586 845 2362 
+L 845 3610 
+C 973 3571 1184 3526 1389 3526 
+C 2176 3526 2624 4109 2624 4192 
+C 2624 4230 2605 4262 2560 4262 
+C 2554 4262 2541 4262 2509 4243 
+C 2381 4186 2067 4058 1638 4058 
+C 1382 4058 1088 4102 787 4237 
+C 736 4256 723 4256 710 4256 
+C 646 4256 646 4205 646 4102 
+L 646 2208 
+C 646 2093 646 2042 736 2042 
+C 781 2042 794 2061 819 2099 
+C 890 2202 1126 2547 1645 2547 
+C 1978 2547 2138 2253 2189 2138 
+C 2291 1901 2304 1651 2304 1331 
+C 2304 1107 2304 723 2150 454 
+C 1997 205 1760 38 1466 38 
+C 998 38 634 378 525 755 
+C 544 749 563 742 634 742 
+C 845 742 954 902 954 1056 
+C 954 1210 845 1370 634 1370 
+C 544 1370 320 1325 320 1030 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-4c" d="M 179 0 
+C 390 6 691 19 877 19 
+C 1069 19 1325 13 1581 0 
+L 1581 198 
+C 1152 198 1082 198 1082 486 
+L 1082 1146 
+L 1491 1498 
+C 1984 819 2253 461 2253 346 
+C 2253 224 2144 198 2022 198 
+L 2022 0 
+C 2202 6 2579 19 2714 19 
+C 2899 19 3085 13 3270 0 
+L 3270 198 
+C 3034 198 2893 198 2650 538 
+L 1837 1683 
+C 1830 1696 1798 1734 1798 1754 
+C 1798 1779 2253 2163 2317 2214 
+C 2720 2541 2989 2554 3123 2560 
+L 3123 2758 
+C 2938 2739 2854 2739 2675 2739 
+C 2445 2739 2048 2752 1958 2758 
+L 1958 2560 
+C 2080 2554 2144 2483 2144 2400 
+C 2144 2272 2054 2195 2003 2150 
+L 1101 1370 
+L 1101 4442 
+L 179 4371 
+L 179 4173 
+C 627 4173 678 4128 678 3814 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-75th-CMUSerif-Roman-16" transform="translate(72.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4c" transform="translate(122.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-xtick_3">
+     <g id="geo-75th-line2d_3">
+      <path d="M 223.159878 247.200469 
+L 223.159878 5.04 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-75th-text_3">
+      <!-- €10k -->
+      <g style="fill: #26211e" transform="translate(209.665503 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-12" d="M 570 3654 
+C 698 3654 1075 3654 1408 3821 
+L 1408 506 
+C 1408 275 1389 198 813 198 
+L 608 198 
+L 608 0 
+C 832 19 1389 19 1645 19 
+C 1901 19 2458 19 2682 0 
+L 2682 198 
+L 2477 198 
+C 1901 198 1882 269 1882 506 
+L 1882 4096 
+C 1882 4250 1882 4262 1734 4262 
+C 1338 3853 774 3853 570 3853 
+L 570 3654 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-75th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-xtick_4">
+     <g id="geo-75th-line2d_4">
+      <path d="M 310.979818 247.200469 
+L 310.979818 5.04 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-75th-text_4">
+      <!-- €15k -->
+      <g style="fill: #26211e" transform="translate(297.485443 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-75th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-xtick_5">
+     <g id="geo-75th-line2d_5">
+      <path d="M 398.799757 247.200469 
+L 398.799757 5.04 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-75th-text_5">
+      <!-- €20k -->
+      <g style="fill: #26211e" transform="translate(385.305382 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-13" d="M 320 0 
+L 2694 0 
+L 2874 1114 
+L 2714 1114 
+C 2682 922 2637 640 2573 544 
+C 2528 493 2106 493 1965 493 
+L 813 493 
+L 1491 1152 
+C 2490 2035 2874 2381 2874 3021 
+C 2874 3750 2298 4262 1517 4262 
+C 794 4262 320 3674 320 3104 
+C 320 2746 640 2746 659 2746 
+C 768 2746 992 2822 992 3085 
+C 992 3251 877 3418 653 3418 
+C 602 3418 589 3418 570 3411 
+C 717 3827 1062 4064 1434 4064 
+C 2016 4064 2291 3546 2291 3021 
+C 2291 2509 1971 2003 1619 1606 
+L 390 237 
+C 320 166 320 154 320 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-75th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-xtick_6">
+     <g id="geo-75th-line2d_6">
+      <path d="M 486.619696 247.200469 
+L 486.619696 5.04 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-75th-text_6">
+      <!-- €25k -->
+      <g style="fill: #26211e" transform="translate(473.125321 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-75th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-xtick_7"></g>
+    <g id="geo-75th-xtick_8"></g>
+    <g id="geo-75th-xtick_9"></g>
+    <g id="geo-75th-xtick_10"></g>
+    <g id="geo-75th-xtick_11"></g>
+   </g>
+   <g id="geo-75th-matplotlib.axis_2">
+    <g id="geo-75th-ytick_1">
+     <g id="geo-75th-text_7">
+      <!-- Paris -->
+      <g style="fill: #26211e" transform="translate(17.95125 227.306347) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-31" d="M 224 0 
+C 448 19 922 19 1165 19 
+C 1408 19 1888 19 2112 0 
+L 2112 198 
+L 1958 198 
+C 1466 198 1453 269 1453 499 
+L 1453 2022 
+L 2534 2022 
+C 3302 2022 3994 2541 3994 3181 
+C 3994 3808 3360 4371 2483 4371 
+L 224 4371 
+L 224 4173 
+L 378 4173 
+C 870 4173 883 4102 883 3872 
+L 883 499 
+C 883 269 870 198 378 198 
+L 224 198 
+L 224 0 
+z
+M 1434 2189 
+L 1434 3917 
+C 1434 4128 1446 4173 1747 4173 
+L 2317 4173 
+C 3334 4173 3334 3494 3334 3181 
+C 3334 2880 3334 2189 2317 2189 
+L 1434 2189 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-42" d="M 269 608 
+C 269 90 890 -70 1293 -70 
+C 1715 -70 2010 186 2131 486 
+C 2157 230 2330 -38 2630 -38 
+C 2765 -38 3155 51 3155 570 
+L 3155 928 
+L 2995 928 
+L 2995 570 
+C 2995 198 2835 160 2765 160 
+C 2554 160 2528 448 2528 480 
+L 2528 1760 
+C 2528 2029 2528 2278 2298 2515 
+C 2048 2765 1728 2867 1421 2867 
+C 896 2867 454 2566 454 2144 
+C 454 1952 582 1843 749 1843 
+C 928 1843 1043 1971 1043 2138 
+C 1043 2214 1011 2426 717 2432 
+C 890 2656 1203 2726 1408 2726 
+C 1722 2726 2086 2477 2086 1907 
+L 2086 1670 
+C 1760 1651 1312 1632 909 1440 
+C 429 1222 269 890 269 608 
+z
+M 762 614 
+C 762 966 1030 1498 2086 1536 
+L 2086 896 
+C 2086 288 1626 70 1338 70 
+C 1024 70 762 294 762 614 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-53" d="M 179 0 
+C 429 6 730 19 909 19 
+C 1165 19 1466 19 1722 0 
+L 1722 198 
+L 1587 198 
+C 1114 198 1101 269 1101 499 
+L 1101 1485 
+C 1101 2118 1370 2688 1856 2688 
+C 1901 2688 1914 2688 1926 2682 
+C 1907 2675 1779 2598 1779 2432 
+C 1779 2253 1914 2157 2054 2157 
+C 2170 2157 2330 2234 2330 2438 
+C 2330 2643 2131 2829 1856 2829 
+C 1389 2829 1158 2400 1069 2125 
+L 1069 2829 
+L 179 2758 
+L 179 2560 
+C 627 2560 678 2515 678 2202 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-4a" d="M 480 3942 
+C 480 3770 621 3603 819 3603 
+C 998 3603 1158 3738 1158 3942 
+C 1158 4147 998 4282 819 4282 
+C 621 4282 480 4109 480 3942 
+z
+M 211 0 
+C 416 6 762 19 915 19 
+C 1139 19 1363 6 1581 0 
+L 1581 198 
+C 1158 198 1133 230 1133 480 
+L 1133 2829 
+L 237 2758 
+L 237 2560 
+C 653 2560 710 2522 710 2208 
+L 710 486 
+C 710 198 640 198 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-54" d="M 211 83 
+C 211 -26 211 -70 282 -70 
+C 314 -70 320 -64 442 58 
+C 454 70 454 83 570 205 
+C 851 -64 1139 -70 1274 -70 
+C 2010 -70 2304 358 2304 819 
+C 2304 1158 2112 1350 2035 1427 
+C 1824 1632 1574 1683 1306 1734 
+C 947 1805 518 1888 518 2259 
+C 518 2483 685 2746 1235 2746 
+C 1939 2746 1971 2170 1984 1971 
+C 1990 1914 2048 1914 2061 1914 
+C 2144 1914 2144 1946 2144 2067 
+L 2144 2714 
+C 2144 2822 2144 2867 2074 2867 
+C 2042 2867 2029 2867 1946 2790 
+C 1926 2765 1862 2707 1837 2688 
+C 1594 2867 1331 2867 1235 2867 
+C 454 2867 211 2438 211 2080 
+C 211 1856 314 1677 486 1536 
+C 691 1370 870 1331 1331 1242 
+C 1472 1216 1997 1114 1997 653 
+C 1997 326 1773 70 1274 70 
+C 736 70 506 435 384 979 
+C 365 1062 358 1088 294 1088 
+C 211 1088 211 1043 211 928 
+L 211 83 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-31"></use>
+       <use href="#geo-75th-CMUSerif-Roman-42" transform="translate(65.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-53" transform="translate(115.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4a" transform="translate(154.296875 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-54" transform="translate(182 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-ytick_2">
+     <g id="geo-75th-text_8">
+      <!-- Munich -->
+      <g style="fill: #26211e" transform="translate(5.23125 188.751902) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-2e" d="M 237 0 
+C 461 6 774 19 986 19 
+C 1197 19 1510 6 1734 0 
+L 1734 198 
+C 1075 198 1075 499 1075 672 
+L 1075 4122 
+L 1082 4122 
+L 2624 141 
+C 2656 58 2688 0 2752 0 
+C 2822 0 2842 51 2867 122 
+L 4442 4173 
+L 4448 4173 
+L 4448 499 
+C 4448 269 4435 198 3942 198 
+L 3789 198 
+L 3789 0 
+C 4026 19 4461 19 4710 19 
+C 4960 19 5389 19 5626 0 
+L 5626 198 
+L 5472 198 
+C 4979 198 4966 269 4966 499 
+L 4966 3872 
+C 4966 4102 4979 4173 5472 4173 
+L 5626 4173 
+L 5626 4371 
+L 4544 4371 
+C 4378 4371 4378 4365 4333 4250 
+L 2931 646 
+L 1542 4230 
+C 1485 4371 1466 4371 1318 4371 
+L 237 4371 
+L 237 4173 
+L 390 4173 
+C 883 4173 896 4102 896 3872 
+L 896 672 
+C 896 499 896 198 237 198 
+L 237 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-56" d="M 205 2560 
+C 704 2560 704 2541 704 1971 
+L 704 1011 
+C 704 512 704 -70 1677 -70 
+C 2035 -70 2317 109 2502 506 
+L 2502 -70 
+L 3424 0 
+L 3424 198 
+C 2976 198 2925 243 2925 557 
+L 2925 2829 
+L 1984 2758 
+L 1984 2560 
+C 2432 2560 2483 2515 2483 2202 
+L 2483 1062 
+C 2483 506 2176 70 1709 70 
+C 1171 70 1146 371 1146 704 
+L 1146 2829 
+L 205 2758 
+L 205 2560 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-4f" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-44" d="M 218 1382 
+C 218 563 851 -70 1594 -70 
+C 2451 -70 2656 698 2656 762 
+C 2656 826 2592 826 2573 826 
+C 2515 826 2502 800 2490 762 
+C 2304 166 1888 90 1651 90 
+C 1312 90 749 365 749 1395 
+C 749 2438 1274 2707 1613 2707 
+C 1670 2707 2074 2701 2298 2470 
+C 2035 2451 1997 2259 1997 2176 
+C 1997 2010 2112 1882 2291 1882 
+C 2458 1882 2586 1990 2586 2182 
+C 2586 2618 2099 2867 1606 2867 
+C 806 2867 218 2176 218 1382 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-49" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1517 2829 1235 2445 1133 2214 
+L 1126 2214 
+L 1126 4442 
+L 205 4371 
+L 205 4173 
+C 653 4173 704 4128 704 3814 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-2e"></use>
+       <use href="#geo-75th-CMUSerif-Roman-56" transform="translate(91.59375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4f" transform="translate(147.09375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4a" transform="translate(202.59375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-44" transform="translate(230.296875 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-49" transform="translate(271.90625 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-ytick_3">
+     <g id="geo-75th-text_9">
+      <!-- Vienna -->
+      <g style="fill: #26211e" transform="translate(7.546875 150.197457) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-37" d="M 122 4173 
+C 538 4173 659 4173 749 3930 
+L 2234 0 
+C 2278 -122 2310 -141 2394 -141 
+C 2502 -141 2515 -109 2547 -19 
+L 3974 3744 
+C 4064 3981 4237 4166 4672 4173 
+L 4672 4371 
+C 4474 4358 4218 4352 4051 4352 
+C 3859 4352 3488 4365 3322 4371 
+L 3322 4173 
+C 3654 4166 3789 4000 3789 3853 
+C 3789 3802 3770 3763 3757 3725 
+L 2586 640 
+L 1363 3872 
+C 1325 3962 1325 3974 1325 3987 
+C 1325 4173 1690 4173 1850 4173 
+L 1850 4371 
+C 1619 4352 1178 4352 934 4352 
+C 627 4352 352 4365 122 4371 
+L 122 4173 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-46" d="M 179 1408 
+C 179 550 851 -70 1587 -70 
+C 2368 -70 2656 640 2656 762 
+C 2656 826 2605 838 2573 838 
+C 2515 838 2502 800 2490 749 
+C 2266 90 1690 90 1626 90 
+C 1306 90 1050 282 902 518 
+C 710 826 710 1248 710 1478 
+L 2496 1478 
+C 2637 1478 2656 1478 2656 1613 
+C 2656 2246 2310 2867 1510 2867 
+C 768 2867 179 2208 179 1408 
+z
+M 717 1613 
+C 755 2566 1293 2726 1510 2726 
+C 2170 2726 2234 1862 2234 1613 
+L 717 1613 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-37"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4a" transform="translate(75 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-46" transform="translate(102.703125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4f" transform="translate(147.109375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4f" transform="translate(202.609375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-42" transform="translate(258.109375 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-ytick_4">
+     <g id="geo-75th-text_10">
+      <!-- London -->
+      <g style="fill: #26211e" transform="translate(5.04 111.643012) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-2d" d="M 211 0 
+L 3546 0 
+L 3725 1651 
+L 3565 1651 
+C 3494 998 3405 198 2278 198 
+L 1754 198 
+C 1453 198 1440 243 1440 454 
+L 1440 3866 
+C 1440 4083 1440 4173 2048 4173 
+L 2259 4173 
+L 2259 4371 
+C 2029 4352 1446 4352 1184 4352 
+C 934 4352 435 4352 211 4371 
+L 211 4173 
+L 365 4173 
+C 858 4173 870 4102 870 3872 
+L 870 499 
+C 870 269 858 198 365 198 
+L 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-50" d="M 179 1370 
+C 179 544 845 -70 1594 -70 
+C 2368 -70 3014 557 3014 1370 
+C 3014 2189 2374 2867 1600 2867 
+C 800 2867 179 2170 179 1370 
+z
+M 710 1421 
+C 710 1670 710 2016 864 2298 
+C 1037 2592 1338 2726 1594 2726 
+C 1875 2726 2150 2586 2317 2310 
+C 2483 2035 2483 1664 2483 1421 
+C 2483 1190 2483 845 2342 563 
+C 2202 275 1920 90 1600 90 
+C 1325 90 1043 224 870 518 
+C 710 800 710 1190 710 1421 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-75th-CMUSerif-Roman-45" d="M 218 1376 
+C 218 563 845 -70 1574 -70 
+C 1984 -70 2272 147 2432 352 
+L 2432 -70 
+L 3373 0 
+L 3373 198 
+C 2925 198 2874 243 2874 557 
+L 2874 4442 
+L 1952 4371 
+L 1952 4173 
+C 2400 4173 2451 4128 2451 3814 
+L 2451 2432 
+C 2266 2662 1990 2829 1645 2829 
+C 890 2829 218 2202 218 1376 
+z
+M 749 1370 
+C 749 1606 762 1990 947 2278 
+C 1082 2477 1325 2688 1670 2688 
+C 1894 2688 2163 2592 2362 2304 
+C 2432 2195 2432 2182 2432 2067 
+L 2432 755 
+C 2432 640 2432 627 2362 518 
+C 2170 211 1882 70 1606 70 
+C 1318 70 1088 237 934 480 
+C 768 742 749 1107 749 1370 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-2d"></use>
+       <use href="#geo-75th-CMUSerif-Roman-50" transform="translate(62.5 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4f" transform="translate(112.5 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-45" transform="translate(168 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-50" transform="translate(223.5 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4f" transform="translate(273.5 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-ytick_5">
+     <g id="geo-75th-text_11">
+      <!-- Zurich -->
+      <g style="fill: #26211e" transform="translate(10.86 73.088567) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-3b" d="M 358 109 
+C 358 0 390 0 525 0 
+L 3475 0 
+L 3584 1709 
+L 3424 1709 
+C 3373 819 3251 218 2067 218 
+L 1018 218 
+L 3501 4147 
+C 3546 4218 3546 4224 3546 4269 
+C 3546 4371 3507 4371 3379 4371 
+L 512 4371 
+L 442 2931 
+L 602 2931 
+C 646 3654 838 4173 1888 4173 
+L 2893 4173 
+L 403 237 
+C 358 166 358 160 358 109 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-3b"></use>
+       <use href="#geo-75th-CMUSerif-Roman-56" transform="translate(61.09375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-53" transform="translate(116.59375 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-4a" transform="translate(155.6875 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-44" transform="translate(183.390625 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-49" transform="translate(225 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-ytick_6">
+     <g id="geo-75th-text_12">
+      <!-- Vaduz -->
+      <g style="fill: #26211e" transform="translate(11.866875 34.534122) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-75th-CMUSerif-Roman-5b" d="M 179 90 
+C 179 0 224 0 346 0 
+L 2458 0 
+L 2566 1197 
+L 2406 1197 
+C 2349 442 2214 160 1472 160 
+L 717 160 
+L 2496 2566 
+C 2554 2637 2554 2650 2554 2675 
+C 2554 2758 2502 2758 2387 2758 
+L 339 2758 
+L 269 1728 
+L 429 1728 
+C 467 2381 589 2618 1293 2618 
+L 2022 2618 
+L 237 205 
+C 179 134 179 122 179 90 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-75th-CMUSerif-Roman-37"></use>
+       <use href="#geo-75th-CMUSerif-Roman-42" transform="translate(66.703125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-45" transform="translate(116.703125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-56" transform="translate(172.203125 0)"></use>
+       <use href="#geo-75th-CMUSerif-Roman-5b" transform="translate(227.703125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-75th-ytick_7"></g>
+    <g id="geo-75th-ytick_8"></g>
+    <g id="geo-75th-ytick_9"></g>
+    <g id="geo-75th-ytick_10"></g>
+    <g id="geo-75th-ytick_11"></g>
+    <g id="geo-75th-ytick_12"></g>
+    <g id="geo-75th-ytick_13"></g>
+   </g>
+   <g id="geo-75th-PolyCollection_1">
+    <path d="M 47.52 233.687136 
+L 47.52 211.325558 
+L 66.577512 211.325558 
+L 66.577512 233.687136 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #b2df8a"></path>
+    <path d="M 66.577512 233.687136 
+L 66.577512 211.325558 
+L 114.506122 211.325558 
+L 114.506122 233.687136 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #a6cee3"></path>
+    <path d="M 114.506122 233.687136 
+L 114.506122 211.325558 
+L 155.977625 211.325558 
+L 155.977625 233.687136 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #356798"></path>
+    <path d="M 47.52 195.132691 
+L 47.52 172.771113 
+L 81.456552 172.771113 
+L 81.456552 195.132691 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #b2df8a"></path>
+    <path d="M 81.456552 195.132691 
+L 81.456552 172.771113 
+L 125.542161 172.771113 
+L 125.542161 195.132691 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #a6cee3"></path>
+    <path d="M 125.542161 195.132691 
+L 125.542161 172.771113 
+L 192.569266 172.771113 
+L 192.569266 195.132691 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #356798"></path>
+    <path d="M 47.52 156.578246 
+L 47.52 134.216668 
+L 93.329808 134.216668 
+L 93.329808 156.578246 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #b2df8a"></path>
+    <path d="M 93.329808 156.578246 
+L 93.329808 134.216668 
+L 118.44631 134.216668 
+L 118.44631 156.578246 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #a6cee3"></path>
+    <path d="M 118.44631 156.578246 
+L 118.44631 134.216668 
+L 155.977625 134.216668 
+L 155.977625 156.578246 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #356798"></path>
+    <path d="M 47.52 118.023801 
+L 47.52 95.662223 
+L 115.29615 95.662223 
+L 115.29615 118.023801 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #b2df8a"></path>
+    <path d="M 115.29615 118.023801 
+L 115.29615 95.662223 
+L 181.806933 95.662223 
+L 181.806933 118.023801 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #a6cee3"></path>
+    <path d="M 181.806933 118.023801 
+L 181.806933 95.662223 
+L 259.75152 95.662223 
+L 259.75152 118.023801 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #356798"></path>
+    <path d="M 47.52 79.469356 
+L 47.52 57.107778 
+L 163.920938 57.107778 
+L 163.920938 79.469356 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #b2df8a"></path>
+    <path d="M 163.920938 79.469356 
+L 163.920938 57.107778 
+L 238.708399 57.107778 
+L 238.708399 79.469356 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #a6cee3"></path>
+    <path d="M 238.708399 79.469356 
+L 238.708399 57.107778 
+L 309.516152 57.107778 
+L 309.516152 79.469356 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #356798"></path>
+    <path d="M 47.52 40.914911 
+L 47.52 18.553333 
+L 214.394278 18.553333 
+L 214.394278 40.914911 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #b2df8a"></path>
+    <path d="M 214.394278 40.914911 
+L 214.394278 18.553333 
+L 268.551078 18.553333 
+L 268.551078 40.914911 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #a6cee3"></path>
+    <path d="M 268.551078 40.914911 
+L 268.551078 18.553333 
+L 309.516152 18.553333 
+L 309.516152 40.914911 
+z
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: #356798"></path>
+   </g>
+   <g id="geo-75th-LineCollection_1">
+    <path d="M 155.977625 236.193175 
+L 155.977625 208.819519 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 192.569266 197.63873 
+L 192.569266 170.265074 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 155.977625 159.084285 
+L 155.977625 131.710629 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 259.75152 120.52984 
+L 259.75152 93.156184 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 309.516152 81.975395 
+L 309.516152 54.601739 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 309.516152 43.42095 
+L 309.516152 16.047294 
+" clip-path="url(#geo-75th-p7072bc18c8)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+   </g>
+  </g>
+  <g id="geo-75th-text_13">
+   <!-- €/month -->
+   <g style="fill: #26211e" transform="translate(241.536805 279.240469) scale(0.15 -0.15)">
+    <defs>
+     <path id="geo-75th-CMUSerif-Roman-10" d="M 365 -1510 
+C 365 -1549 384 -1587 422 -1587 
+C 474 -1587 493 -1555 544 -1414 
+L 2810 4627 
+C 2816 4653 2829 4685 2829 4710 
+C 2829 4762 2790 4787 2765 4787 
+C 2694 4787 2669 4672 2650 4627 
+L 390 -1408 
+C 365 -1478 365 -1491 365 -1510 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-75th-CMUSerif-Roman-4e" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 2995 198 2925 198 2925 486 
+L 2925 1664 
+C 2925 2330 3379 2688 3789 2688 
+C 4192 2688 4262 2342 4262 1978 
+L 4262 486 
+C 4262 198 4192 198 3763 198 
+L 3763 0 
+C 3987 6 4314 19 4486 19 
+C 4653 19 4986 6 5203 0 
+L 5203 198 
+C 4870 198 4710 198 4704 390 
+L 4704 1613 
+C 4704 2163 4704 2362 4506 2592 
+C 4416 2701 4205 2829 3834 2829 
+C 3296 2829 3014 2445 2906 2202 
+C 2816 2758 2342 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-75th-CMUSerif-Roman-55" d="M 122 2560 
+L 666 2560 
+L 666 794 
+C 666 6 1261 -70 1491 -70 
+C 1946 -70 2125 384 2125 794 
+L 2125 1158 
+L 1965 1158 
+L 1965 806 
+C 1965 333 1773 90 1536 90 
+C 1107 90 1107 672 1107 781 
+L 1107 2560 
+L 2022 2560 
+L 2022 2758 
+L 1107 2758 
+L 1107 3936 
+L 947 3936 
+C 941 3411 749 2726 122 2701 
+L 122 2560 
+z
+" transform="scale(0.015625)"></path>
+    </defs>
+    <use href="#geo-75th-CMUSerif-Roman-66c"></use>
+    <use href="#geo-75th-CMUSerif-Roman-10" transform="translate(72.203125 0)"></use>
+    <use href="#geo-75th-CMUSerif-Roman-4e" transform="translate(122.203125 0)"></use>
+    <use href="#geo-75th-CMUSerif-Roman-50" transform="translate(205.5 0)"></use>
+    <use href="#geo-75th-CMUSerif-Roman-4f" transform="translate(255.5 0)"></use>
+    <use href="#geo-75th-CMUSerif-Roman-55" transform="translate(308.203125 0)"></use>
+    <use href="#geo-75th-CMUSerif-Roman-49" transform="translate(347 0)"></use>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clippath id="geo-75th-p7072bc18c8">
+   <rect x="47.52" y="5.04" width="448.40861" height="242.160469"></rect>
+  </clippath>
+ </defs>
+</svg>
+<div class="geo-table">
+<table class="caption-top" aria-label="75th percentile figures in euros per month">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">City</th>
+<th data-quarto-table-cell-role="th" scope="col">Left over</th>
+<th data-quarto-table-cell-role="th" scope="col">Cost of living</th>
+<th data-quarto-table-cell-role="th" scope="col">Taxes and<br>
+contributions</th>
+<th data-quarto-table-cell-role="th" scope="col">Gross pay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vaduz</th>
+<td>€9,501</td>
+<td>€3,083</td>
+<td>€2,332</td>
+<td>€14,917</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Zurich</th>
+<td>€6,627</td>
+<td>€4,258</td>
+<td>€4,031</td>
+<td>€14,917</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">London</th>
+<td>€3,859</td>
+<td>€3,787</td>
+<td>€4,438</td>
+<td>€12,083</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Vienna</th>
+<td>€2,608</td>
+<td>€1,430</td>
+<td>€2,137</td>
+<td>€6,175</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Munich</th>
+<td>€1,932</td>
+<td>€2,510</td>
+<td>€3,816</td>
+<td>€8,258</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Paris</th>
+<td>€1,085</td>
+<td>€2,729</td>
+<td>€2,361</td>
+<td>€6,175</td>
+</tr>
+</tbody>
+</table>
+</div></section><section class="geo-panel" data-percentile="90th" aria-label="90th percentile" hidden=""><svg aria-hidden="true" xlink="http://www.w3.org/1999/xlink" width="504pt" height="288pt" viewbox="0 0 504 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:agent>
+    </dc:creator>
+   </cc:work>
+  </rdf:rdf>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="geo-90th-figure_1">
+  <g id="geo-90th-patch_1">
+   <path d="M 0 288 
+L 504 288 
+L 504 0 
+L 0 0 
+z
+" style="fill: #ffffff"></path>
+  </g>
+  <g id="geo-90th-axes_1">
+   <g id="geo-90th-matplotlib.axis_1">
+    <g id="geo-90th-xtick_1">
+     <g id="geo-90th-line2d_1">
+      <path d="M 47.52 247.200469 
+L 47.52 5.04 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-90th-text_1">
+      <!-- €0 -->
+      <g style="fill: #26211e" transform="translate(40.187812 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-66c" d="M 13 1856 
+C 13 1786 83 1779 154 1779 
+L 755 1779 
+C 979 646 1946 0 2906 0 
+C 3366 0 3782 147 4122 371 
+C 4403 563 4416 614 4416 730 
+L 4416 909 
+C 4416 1005 4390 1037 4352 1037 
+C 4314 1037 4269 998 4224 960 
+C 3898 685 3430 486 2906 486 
+C 2150 486 1459 973 1248 1779 
+L 3437 1779 
+C 3526 1779 3565 1792 3622 1920 
+C 3642 1958 3648 1990 3648 2016 
+C 3648 2067 3616 2086 3507 2086 
+L 1203 2086 
+L 1203 2285 
+L 3610 2285 
+C 3667 2285 3718 2278 3763 2304 
+C 3834 2342 3872 2496 3872 2522 
+C 3872 2566 3840 2586 3744 2592 
+L 1248 2592 
+C 1453 3373 2131 3891 2899 3891 
+C 3738 3891 4096 3354 4198 3354 
+C 4282 3354 4390 3635 4390 3731 
+L 4390 3750 
+C 4301 3917 3667 4371 2899 4371 
+C 1984 4371 986 3763 755 2592 
+L 218 2592 
+C 32 2586 13 2362 13 2362 
+C 13 2298 83 2285 147 2285 
+L 717 2285 
+L 717 2086 
+L 211 2086 
+C 32 2086 13 1856 13 1856 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-11" d="M 250 2048 
+C 250 1568 275 992 538 506 
+C 813 -13 1280 -141 1594 -141 
+C 1939 -141 2426 -6 2707 602 
+C 2912 1043 2944 1542 2944 2048 
+C 2944 2560 2912 3072 2688 3546 
+C 2394 4160 1869 4262 1600 4262 
+C 1216 4262 749 4096 486 3501 
+C 282 3059 250 2560 250 2048 
+z
+M 781 2125 
+C 781 2534 781 2957 832 3302 
+C 954 4064 1434 4122 1594 4122 
+C 1805 4122 2227 4006 2349 3373 
+C 2413 3014 2413 2528 2413 2125 
+C 2413 1645 2413 1210 2342 800 
+C 2246 192 1882 0 1594 0 
+C 1344 0 966 160 851 774 
+C 781 1158 781 1747 781 2125 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-90th-CMUSerif-Roman-11" transform="translate(72.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-xtick_2">
+     <g id="geo-90th-line2d_2">
+      <path d="M 135.339939 247.200469 
+L 135.339939 5.04 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-90th-text_2">
+      <!-- €5k -->
+      <g style="fill: #26211e" transform="translate(124.845564 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-16" d="M 320 1030 
+C 320 480 762 -141 1478 -141 
+C 2221 -141 2874 474 2874 1286 
+C 2874 2048 2349 2688 1658 2688 
+C 1350 2688 1075 2586 845 2362 
+L 845 3610 
+C 973 3571 1184 3526 1389 3526 
+C 2176 3526 2624 4109 2624 4192 
+C 2624 4230 2605 4262 2560 4262 
+C 2554 4262 2541 4262 2509 4243 
+C 2381 4186 2067 4058 1638 4058 
+C 1382 4058 1088 4102 787 4237 
+C 736 4256 723 4256 710 4256 
+C 646 4256 646 4205 646 4102 
+L 646 2208 
+C 646 2093 646 2042 736 2042 
+C 781 2042 794 2061 819 2099 
+C 890 2202 1126 2547 1645 2547 
+C 1978 2547 2138 2253 2189 2138 
+C 2291 1901 2304 1651 2304 1331 
+C 2304 1107 2304 723 2150 454 
+C 1997 205 1760 38 1466 38 
+C 998 38 634 378 525 755 
+C 544 749 563 742 634 742 
+C 845 742 954 902 954 1056 
+C 954 1210 845 1370 634 1370 
+C 544 1370 320 1325 320 1030 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-4c" d="M 179 0 
+C 390 6 691 19 877 19 
+C 1069 19 1325 13 1581 0 
+L 1581 198 
+C 1152 198 1082 198 1082 486 
+L 1082 1146 
+L 1491 1498 
+C 1984 819 2253 461 2253 346 
+C 2253 224 2144 198 2022 198 
+L 2022 0 
+C 2202 6 2579 19 2714 19 
+C 2899 19 3085 13 3270 0 
+L 3270 198 
+C 3034 198 2893 198 2650 538 
+L 1837 1683 
+C 1830 1696 1798 1734 1798 1754 
+C 1798 1779 2253 2163 2317 2214 
+C 2720 2541 2989 2554 3123 2560 
+L 3123 2758 
+C 2938 2739 2854 2739 2675 2739 
+C 2445 2739 2048 2752 1958 2758 
+L 1958 2560 
+C 2080 2554 2144 2483 2144 2400 
+C 2144 2272 2054 2195 2003 2150 
+L 1101 1370 
+L 1101 4442 
+L 179 4371 
+L 179 4173 
+C 627 4173 678 4128 678 3814 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-90th-CMUSerif-Roman-16" transform="translate(72.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4c" transform="translate(122.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-xtick_3">
+     <g id="geo-90th-line2d_3">
+      <path d="M 223.159878 247.200469 
+L 223.159878 5.04 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-90th-text_3">
+      <!-- €10k -->
+      <g style="fill: #26211e" transform="translate(209.665503 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-12" d="M 570 3654 
+C 698 3654 1075 3654 1408 3821 
+L 1408 506 
+C 1408 275 1389 198 813 198 
+L 608 198 
+L 608 0 
+C 832 19 1389 19 1645 19 
+C 1901 19 2458 19 2682 0 
+L 2682 198 
+L 2477 198 
+C 1901 198 1882 269 1882 506 
+L 1882 4096 
+C 1882 4250 1882 4262 1734 4262 
+C 1338 3853 774 3853 570 3853 
+L 570 3654 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-90th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-xtick_4">
+     <g id="geo-90th-line2d_4">
+      <path d="M 310.979818 247.200469 
+L 310.979818 5.04 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-90th-text_4">
+      <!-- €15k -->
+      <g style="fill: #26211e" transform="translate(297.485443 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-90th-CMUSerif-Roman-12" transform="translate(72.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-xtick_5">
+     <g id="geo-90th-line2d_5">
+      <path d="M 398.799757 247.200469 
+L 398.799757 5.04 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-90th-text_5">
+      <!-- €20k -->
+      <g style="fill: #26211e" transform="translate(385.305382 259.800469) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-13" d="M 320 0 
+L 2694 0 
+L 2874 1114 
+L 2714 1114 
+C 2682 922 2637 640 2573 544 
+C 2528 493 2106 493 1965 493 
+L 813 493 
+L 1491 1152 
+C 2490 2035 2874 2381 2874 3021 
+C 2874 3750 2298 4262 1517 4262 
+C 794 4262 320 3674 320 3104 
+C 320 2746 640 2746 659 2746 
+C 768 2746 992 2822 992 3085 
+C 992 3251 877 3418 653 3418 
+C 602 3418 589 3418 570 3411 
+C 717 3827 1062 4064 1434 4064 
+C 2016 4064 2291 3546 2291 3021 
+C 2291 2509 1971 2003 1619 1606 
+L 390 237 
+C 320 166 320 154 320 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-90th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-11" transform="translate(122.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-xtick_6">
+     <g id="geo-90th-line2d_6">
+      <path d="M 486.619696 247.200469 
+L 486.619696 5.04 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #d9d6ce; stroke-width: 0.45; stroke-linecap: square"></path>
+     </g>
+     <g id="geo-90th-text_6">
+      <!-- €25k -->
+      <g style="fill: #26211e" transform="translate(473.125321 259.800469) scale(0.12 -0.12)">
+       <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+       <use href="#geo-90th-CMUSerif-Roman-13" transform="translate(72.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-16" transform="translate(122.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4c" transform="translate(172.203125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-xtick_7"></g>
+    <g id="geo-90th-xtick_8"></g>
+    <g id="geo-90th-xtick_9"></g>
+    <g id="geo-90th-xtick_10"></g>
+    <g id="geo-90th-xtick_11"></g>
+   </g>
+   <g id="geo-90th-matplotlib.axis_2">
+    <g id="geo-90th-ytick_1">
+     <g id="geo-90th-text_7">
+      <!-- Paris -->
+      <g style="fill: #26211e" transform="translate(17.95125 227.306347) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-31" d="M 224 0 
+C 448 19 922 19 1165 19 
+C 1408 19 1888 19 2112 0 
+L 2112 198 
+L 1958 198 
+C 1466 198 1453 269 1453 499 
+L 1453 2022 
+L 2534 2022 
+C 3302 2022 3994 2541 3994 3181 
+C 3994 3808 3360 4371 2483 4371 
+L 224 4371 
+L 224 4173 
+L 378 4173 
+C 870 4173 883 4102 883 3872 
+L 883 499 
+C 883 269 870 198 378 198 
+L 224 198 
+L 224 0 
+z
+M 1434 2189 
+L 1434 3917 
+C 1434 4128 1446 4173 1747 4173 
+L 2317 4173 
+C 3334 4173 3334 3494 3334 3181 
+C 3334 2880 3334 2189 2317 2189 
+L 1434 2189 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-42" d="M 269 608 
+C 269 90 890 -70 1293 -70 
+C 1715 -70 2010 186 2131 486 
+C 2157 230 2330 -38 2630 -38 
+C 2765 -38 3155 51 3155 570 
+L 3155 928 
+L 2995 928 
+L 2995 570 
+C 2995 198 2835 160 2765 160 
+C 2554 160 2528 448 2528 480 
+L 2528 1760 
+C 2528 2029 2528 2278 2298 2515 
+C 2048 2765 1728 2867 1421 2867 
+C 896 2867 454 2566 454 2144 
+C 454 1952 582 1843 749 1843 
+C 928 1843 1043 1971 1043 2138 
+C 1043 2214 1011 2426 717 2432 
+C 890 2656 1203 2726 1408 2726 
+C 1722 2726 2086 2477 2086 1907 
+L 2086 1670 
+C 1760 1651 1312 1632 909 1440 
+C 429 1222 269 890 269 608 
+z
+M 762 614 
+C 762 966 1030 1498 2086 1536 
+L 2086 896 
+C 2086 288 1626 70 1338 70 
+C 1024 70 762 294 762 614 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-53" d="M 179 0 
+C 429 6 730 19 909 19 
+C 1165 19 1466 19 1722 0 
+L 1722 198 
+L 1587 198 
+C 1114 198 1101 269 1101 499 
+L 1101 1485 
+C 1101 2118 1370 2688 1856 2688 
+C 1901 2688 1914 2688 1926 2682 
+C 1907 2675 1779 2598 1779 2432 
+C 1779 2253 1914 2157 2054 2157 
+C 2170 2157 2330 2234 2330 2438 
+C 2330 2643 2131 2829 1856 2829 
+C 1389 2829 1158 2400 1069 2125 
+L 1069 2829 
+L 179 2758 
+L 179 2560 
+C 627 2560 678 2515 678 2202 
+L 678 486 
+C 678 198 608 198 179 198 
+L 179 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-4a" d="M 480 3942 
+C 480 3770 621 3603 819 3603 
+C 998 3603 1158 3738 1158 3942 
+C 1158 4147 998 4282 819 4282 
+C 621 4282 480 4109 480 3942 
+z
+M 211 0 
+C 416 6 762 19 915 19 
+C 1139 19 1363 6 1581 0 
+L 1581 198 
+C 1158 198 1133 230 1133 480 
+L 1133 2829 
+L 237 2758 
+L 237 2560 
+C 653 2560 710 2522 710 2208 
+L 710 486 
+C 710 198 640 198 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-54" d="M 211 83 
+C 211 -26 211 -70 282 -70 
+C 314 -70 320 -64 442 58 
+C 454 70 454 83 570 205 
+C 851 -64 1139 -70 1274 -70 
+C 2010 -70 2304 358 2304 819 
+C 2304 1158 2112 1350 2035 1427 
+C 1824 1632 1574 1683 1306 1734 
+C 947 1805 518 1888 518 2259 
+C 518 2483 685 2746 1235 2746 
+C 1939 2746 1971 2170 1984 1971 
+C 1990 1914 2048 1914 2061 1914 
+C 2144 1914 2144 1946 2144 2067 
+L 2144 2714 
+C 2144 2822 2144 2867 2074 2867 
+C 2042 2867 2029 2867 1946 2790 
+C 1926 2765 1862 2707 1837 2688 
+C 1594 2867 1331 2867 1235 2867 
+C 454 2867 211 2438 211 2080 
+C 211 1856 314 1677 486 1536 
+C 691 1370 870 1331 1331 1242 
+C 1472 1216 1997 1114 1997 653 
+C 1997 326 1773 70 1274 70 
+C 736 70 506 435 384 979 
+C 365 1062 358 1088 294 1088 
+C 211 1088 211 1043 211 928 
+L 211 83 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-31"></use>
+       <use href="#geo-90th-CMUSerif-Roman-42" transform="translate(65.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-53" transform="translate(115.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4a" transform="translate(154.296875 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-54" transform="translate(182 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-ytick_2">
+     <g id="geo-90th-text_8">
+      <!-- Munich -->
+      <g style="fill: #26211e" transform="translate(5.23125 188.751902) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-2e" d="M 237 0 
+C 461 6 774 19 986 19 
+C 1197 19 1510 6 1734 0 
+L 1734 198 
+C 1075 198 1075 499 1075 672 
+L 1075 4122 
+L 1082 4122 
+L 2624 141 
+C 2656 58 2688 0 2752 0 
+C 2822 0 2842 51 2867 122 
+L 4442 4173 
+L 4448 4173 
+L 4448 499 
+C 4448 269 4435 198 3942 198 
+L 3789 198 
+L 3789 0 
+C 4026 19 4461 19 4710 19 
+C 4960 19 5389 19 5626 0 
+L 5626 198 
+L 5472 198 
+C 4979 198 4966 269 4966 499 
+L 4966 3872 
+C 4966 4102 4979 4173 5472 4173 
+L 5626 4173 
+L 5626 4371 
+L 4544 4371 
+C 4378 4371 4378 4365 4333 4250 
+L 2931 646 
+L 1542 4230 
+C 1485 4371 1466 4371 1318 4371 
+L 237 4371 
+L 237 4173 
+L 390 4173 
+C 883 4173 896 4102 896 3872 
+L 896 672 
+C 896 499 896 198 237 198 
+L 237 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-56" d="M 205 2560 
+C 704 2560 704 2541 704 1971 
+L 704 1011 
+C 704 512 704 -70 1677 -70 
+C 2035 -70 2317 109 2502 506 
+L 2502 -70 
+L 3424 0 
+L 3424 198 
+C 2976 198 2925 243 2925 557 
+L 2925 2829 
+L 1984 2758 
+L 1984 2560 
+C 2432 2560 2483 2515 2483 2202 
+L 2483 1062 
+C 2483 506 2176 70 1709 70 
+C 1171 70 1146 371 1146 704 
+L 1146 2829 
+L 205 2758 
+L 205 2560 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-4f" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-44" d="M 218 1382 
+C 218 563 851 -70 1594 -70 
+C 2451 -70 2656 698 2656 762 
+C 2656 826 2592 826 2573 826 
+C 2515 826 2502 800 2490 762 
+C 2304 166 1888 90 1651 90 
+C 1312 90 749 365 749 1395 
+C 749 2438 1274 2707 1613 2707 
+C 1670 2707 2074 2701 2298 2470 
+C 2035 2451 1997 2259 1997 2176 
+C 1997 2010 2112 1882 2291 1882 
+C 2458 1882 2586 1990 2586 2182 
+C 2586 2618 2099 2867 1606 2867 
+C 806 2867 218 2176 218 1382 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-49" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 3091 198 2931 198 2925 390 
+L 2925 1613 
+C 2925 2163 2925 2362 2726 2592 
+C 2637 2701 2426 2829 2054 2829 
+C 1517 2829 1235 2445 1133 2214 
+L 1126 2214 
+L 1126 4442 
+L 205 4371 
+L 205 4173 
+C 653 4173 704 4128 704 3814 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-2e"></use>
+       <use href="#geo-90th-CMUSerif-Roman-56" transform="translate(91.59375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4f" transform="translate(147.09375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4a" transform="translate(202.59375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-44" transform="translate(230.296875 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-49" transform="translate(271.90625 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-ytick_3">
+     <g id="geo-90th-text_9">
+      <!-- Vienna -->
+      <g style="fill: #26211e" transform="translate(7.546875 150.197457) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-37" d="M 122 4173 
+C 538 4173 659 4173 749 3930 
+L 2234 0 
+C 2278 -122 2310 -141 2394 -141 
+C 2502 -141 2515 -109 2547 -19 
+L 3974 3744 
+C 4064 3981 4237 4166 4672 4173 
+L 4672 4371 
+C 4474 4358 4218 4352 4051 4352 
+C 3859 4352 3488 4365 3322 4371 
+L 3322 4173 
+C 3654 4166 3789 4000 3789 3853 
+C 3789 3802 3770 3763 3757 3725 
+L 2586 640 
+L 1363 3872 
+C 1325 3962 1325 3974 1325 3987 
+C 1325 4173 1690 4173 1850 4173 
+L 1850 4371 
+C 1619 4352 1178 4352 934 4352 
+C 627 4352 352 4365 122 4371 
+L 122 4173 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-46" d="M 179 1408 
+C 179 550 851 -70 1587 -70 
+C 2368 -70 2656 640 2656 762 
+C 2656 826 2605 838 2573 838 
+C 2515 838 2502 800 2490 749 
+C 2266 90 1690 90 1626 90 
+C 1306 90 1050 282 902 518 
+C 710 826 710 1248 710 1478 
+L 2496 1478 
+C 2637 1478 2656 1478 2656 1613 
+C 2656 2246 2310 2867 1510 2867 
+C 768 2867 179 2208 179 1408 
+z
+M 717 1613 
+C 755 2566 1293 2726 1510 2726 
+C 2170 2726 2234 1862 2234 1613 
+L 717 1613 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-37"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4a" transform="translate(75 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-46" transform="translate(102.703125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4f" transform="translate(147.109375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4f" transform="translate(202.609375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-42" transform="translate(258.109375 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-ytick_4">
+     <g id="geo-90th-text_10">
+      <!-- London -->
+      <g style="fill: #26211e" transform="translate(5.04 111.643012) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-2d" d="M 211 0 
+L 3546 0 
+L 3725 1651 
+L 3565 1651 
+C 3494 998 3405 198 2278 198 
+L 1754 198 
+C 1453 198 1440 243 1440 454 
+L 1440 3866 
+C 1440 4083 1440 4173 2048 4173 
+L 2259 4173 
+L 2259 4371 
+C 2029 4352 1446 4352 1184 4352 
+C 934 4352 435 4352 211 4371 
+L 211 4173 
+L 365 4173 
+C 858 4173 870 4102 870 3872 
+L 870 499 
+C 870 269 858 198 365 198 
+L 211 198 
+L 211 0 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-50" d="M 179 1370 
+C 179 544 845 -70 1594 -70 
+C 2368 -70 3014 557 3014 1370 
+C 3014 2189 2374 2867 1600 2867 
+C 800 2867 179 2170 179 1370 
+z
+M 710 1421 
+C 710 1670 710 2016 864 2298 
+C 1037 2592 1338 2726 1594 2726 
+C 1875 2726 2150 2586 2317 2310 
+C 2483 2035 2483 1664 2483 1421 
+C 2483 1190 2483 845 2342 563 
+C 2202 275 1920 90 1600 90 
+C 1325 90 1043 224 870 518 
+C 710 800 710 1190 710 1421 
+z
+" transform="scale(0.015625)"></path>
+        <path id="geo-90th-CMUSerif-Roman-45" d="M 218 1376 
+C 218 563 845 -70 1574 -70 
+C 1984 -70 2272 147 2432 352 
+L 2432 -70 
+L 3373 0 
+L 3373 198 
+C 2925 198 2874 243 2874 557 
+L 2874 4442 
+L 1952 4371 
+L 1952 4173 
+C 2400 4173 2451 4128 2451 3814 
+L 2451 2432 
+C 2266 2662 1990 2829 1645 2829 
+C 890 2829 218 2202 218 1376 
+z
+M 749 1370 
+C 749 1606 762 1990 947 2278 
+C 1082 2477 1325 2688 1670 2688 
+C 1894 2688 2163 2592 2362 2304 
+C 2432 2195 2432 2182 2432 2067 
+L 2432 755 
+C 2432 640 2432 627 2362 518 
+C 2170 211 1882 70 1606 70 
+C 1318 70 1088 237 934 480 
+C 768 742 749 1107 749 1370 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-2d"></use>
+       <use href="#geo-90th-CMUSerif-Roman-50" transform="translate(62.5 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4f" transform="translate(112.5 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-45" transform="translate(168 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-50" transform="translate(223.5 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4f" transform="translate(273.5 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-ytick_5">
+     <g id="geo-90th-text_11">
+      <!-- Zurich -->
+      <g style="fill: #26211e" transform="translate(10.86 73.088567) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-3b" d="M 358 109 
+C 358 0 390 0 525 0 
+L 3475 0 
+L 3584 1709 
+L 3424 1709 
+C 3373 819 3251 218 2067 218 
+L 1018 218 
+L 3501 4147 
+C 3546 4218 3546 4224 3546 4269 
+C 3546 4371 3507 4371 3379 4371 
+L 512 4371 
+L 442 2931 
+L 602 2931 
+C 646 3654 838 4173 1888 4173 
+L 2893 4173 
+L 403 237 
+C 358 166 358 160 358 109 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-3b"></use>
+       <use href="#geo-90th-CMUSerif-Roman-56" transform="translate(61.09375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-53" transform="translate(116.59375 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-4a" transform="translate(155.6875 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-44" transform="translate(183.390625 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-49" transform="translate(225 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-ytick_6">
+     <g id="geo-90th-text_12">
+      <!-- Vaduz -->
+      <g style="fill: #26211e" transform="translate(11.866875 34.534122) scale(0.12 -0.12)">
+       <defs>
+        <path id="geo-90th-CMUSerif-Roman-5b" d="M 179 90 
+C 179 0 224 0 346 0 
+L 2458 0 
+L 2566 1197 
+L 2406 1197 
+C 2349 442 2214 160 1472 160 
+L 717 160 
+L 2496 2566 
+C 2554 2637 2554 2650 2554 2675 
+C 2554 2758 2502 2758 2387 2758 
+L 339 2758 
+L 269 1728 
+L 429 1728 
+C 467 2381 589 2618 1293 2618 
+L 2022 2618 
+L 237 205 
+C 179 134 179 122 179 90 
+z
+" transform="scale(0.015625)"></path>
+       </defs>
+       <use href="#geo-90th-CMUSerif-Roman-37"></use>
+       <use href="#geo-90th-CMUSerif-Roman-42" transform="translate(66.703125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-45" transform="translate(116.703125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-56" transform="translate(172.203125 0)"></use>
+       <use href="#geo-90th-CMUSerif-Roman-5b" transform="translate(227.703125 0)"></use>
+      </g>
+     </g>
+    </g>
+    <g id="geo-90th-ytick_7"></g>
+    <g id="geo-90th-ytick_8"></g>
+    <g id="geo-90th-ytick_9"></g>
+    <g id="geo-90th-ytick_10"></g>
+    <g id="geo-90th-ytick_11"></g>
+    <g id="geo-90th-ytick_12"></g>
+    <g id="geo-90th-ytick_13"></g>
+   </g>
+   <g id="geo-90th-PolyCollection_1">
+    <path d="M 47.52 233.687136 
+L 47.52 211.325558 
+L 87.461094 211.325558 
+L 87.461094 233.687136 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #b2df8a"></path>
+    <path d="M 87.461094 233.687136 
+L 87.461094 211.325558 
+L 135.389704 211.325558 
+L 135.389704 233.687136 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #a6cee3"></path>
+    <path d="M 135.389704 233.687136 
+L 135.389704 211.325558 
+L 197.54573 211.325558 
+L 197.54573 233.687136 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #356798"></path>
+    <path d="M 47.52 195.132691 
+L 47.52 172.771113 
+L 95.220864 172.771113 
+L 95.220864 195.132691 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #b2df8a"></path>
+    <path d="M 95.220864 195.132691 
+L 95.220864 172.771113 
+L 139.306473 172.771113 
+L 139.306473 195.132691 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #a6cee3"></path>
+    <path d="M 139.306473 195.132691 
+L 139.306473 172.771113 
+L 236.332869 172.771113 
+L 236.332869 195.132691 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #356798"></path>
+    <path d="M 47.52 156.578246 
+L 47.52 134.216668 
+L 107.252195 134.216668 
+L 107.252195 156.578246 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #b2df8a"></path>
+    <path d="M 107.252195 156.578246 
+L 107.252195 134.216668 
+L 132.368698 134.216668 
+L 132.368698 156.578246 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #a6cee3"></path>
+    <path d="M 132.368698 156.578246 
+L 132.368698 134.216668 
+L 181.152674 134.216668 
+L 181.152674 156.578246 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #356798"></path>
+    <path d="M 47.52 118.023801 
+L 47.52 95.662223 
+L 164.604119 95.662223 
+L 164.604119 118.023801 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #b2df8a"></path>
+    <path d="M 164.604119 118.023801 
+L 164.604119 95.662223 
+L 231.114901 95.662223 
+L 231.114901 118.023801 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #a6cee3"></path>
+    <path d="M 231.114901 118.023801 
+L 231.114901 95.662223 
+L 354.889787 95.662223 
+L 354.889787 118.023801 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #356798"></path>
+    <path d="M 47.52 79.469356 
+L 47.52 57.107778 
+L 262.124122 57.107778 
+L 262.124122 79.469356 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #b2df8a"></path>
+    <path d="M 262.124122 79.469356 
+L 262.124122 57.107778 
+L 336.911582 57.107778 
+L 336.911582 79.469356 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #a6cee3"></path>
+    <path d="M 336.911582 79.469356 
+L 336.911582 57.107778 
+L 480.765034 57.107778 
+L 480.765034 79.469356 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #356798"></path>
+    <path d="M 47.52 40.914911 
+L 47.52 18.553333 
+L 346.247134 18.553333 
+L 346.247134 40.914911 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #b2df8a"></path>
+    <path d="M 346.247134 40.914911 
+L 346.247134 18.553333 
+L 400.403934 18.553333 
+L 400.403934 40.914911 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #a6cee3"></path>
+    <path d="M 400.403934 40.914911 
+L 400.403934 18.553333 
+L 480.765034 18.553333 
+L 480.765034 40.914911 
+z
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: #356798"></path>
+   </g>
+   <g id="geo-90th-LineCollection_1">
+    <path d="M 197.54573 236.193175 
+L 197.54573 208.819519 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 236.332869 197.63873 
+L 236.332869 170.265074 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 181.152674 159.084285 
+L 181.152674 131.710629 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 354.889787 120.52984 
+L 354.889787 93.156184 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 480.765034 81.975395 
+L 480.765034 54.601739 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+    <path d="M 480.765034 43.42095 
+L 480.765034 16.047294 
+" clip-path="url(#geo-90th-p4640bcf5f3)" style="fill: none; stroke: #26211e; stroke-width: 0.850778"></path>
+   </g>
+  </g>
+  <g id="geo-90th-text_13">
+   <!-- €/month -->
+   <g style="fill: #26211e" transform="translate(241.536805 279.240469) scale(0.15 -0.15)">
+    <defs>
+     <path id="geo-90th-CMUSerif-Roman-10" d="M 365 -1510 
+C 365 -1549 384 -1587 422 -1587 
+C 474 -1587 493 -1555 544 -1414 
+L 2810 4627 
+C 2816 4653 2829 4685 2829 4710 
+C 2829 4762 2790 4787 2765 4787 
+C 2694 4787 2669 4672 2650 4627 
+L 390 -1408 
+C 365 -1478 365 -1491 365 -1510 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-90th-CMUSerif-Roman-4e" d="M 205 0 
+C 429 6 755 19 928 19 
+C 1094 19 1427 6 1645 0 
+L 1645 198 
+C 1216 198 1146 198 1146 486 
+L 1146 1664 
+C 1146 2330 1600 2688 2010 2688 
+C 2413 2688 2483 2342 2483 1978 
+L 2483 486 
+C 2483 198 2413 198 1984 198 
+L 1984 0 
+C 2208 6 2534 19 2707 19 
+C 2874 19 3206 6 3424 0 
+L 3424 198 
+C 2995 198 2925 198 2925 486 
+L 2925 1664 
+C 2925 2330 3379 2688 3789 2688 
+C 4192 2688 4262 2342 4262 1978 
+L 4262 486 
+C 4262 198 4192 198 3763 198 
+L 3763 0 
+C 3987 6 4314 19 4486 19 
+C 4653 19 4986 6 5203 0 
+L 5203 198 
+C 4870 198 4710 198 4704 390 
+L 4704 1613 
+C 4704 2163 4704 2362 4506 2592 
+C 4416 2701 4205 2829 3834 2829 
+C 3296 2829 3014 2445 2906 2202 
+C 2816 2758 2342 2829 2054 2829 
+C 1587 2829 1286 2554 1107 2157 
+L 1107 2829 
+L 205 2758 
+L 205 2560 
+C 653 2560 704 2515 704 2202 
+L 704 486 
+C 704 198 634 198 205 198 
+L 205 0 
+z
+" transform="scale(0.015625)"></path>
+     <path id="geo-90th-CMUSerif-Roman-55" d="M 122 2560 
+L 666 2560 
+L 666 794 
+C 666 6 1261 -70 1491 -70 
+C 1946 -70 2125 384 2125 794 
+L 2125 1158 
+L 1965 1158 
+L 1965 806 
+C 1965 333 1773 90 1536 90 
+C 1107 90 1107 672 1107 781 
+L 1107 2560 
+L 2022 2560 
+L 2022 2758 
+L 1107 2758 
+L 1107 3936 
+L 947 3936 
+C 941 3411 749 2726 122 2701 
+L 122 2560 
+z
+" transform="scale(0.015625)"></path>
+    </defs>
+    <use href="#geo-90th-CMUSerif-Roman-66c"></use>
+    <use href="#geo-90th-CMUSerif-Roman-10" transform="translate(72.203125 0)"></use>
+    <use href="#geo-90th-CMUSerif-Roman-4e" transform="translate(122.203125 0)"></use>
+    <use href="#geo-90th-CMUSerif-Roman-50" transform="translate(205.5 0)"></use>
+    <use href="#geo-90th-CMUSerif-Roman-4f" transform="translate(255.5 0)"></use>
+    <use href="#geo-90th-CMUSerif-Roman-55" transform="translate(308.203125 0)"></use>
+    <use href="#geo-90th-CMUSerif-Roman-49" transform="translate(347 0)"></use>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clippath id="geo-90th-p4640bcf5f3">
+   <rect x="47.52" y="5.04" width="448.40861" height="242.160469"></rect>
+  </clippath>
+ </defs>
+</svg>
+<div class="geo-table">
+<table class="caption-top" aria-label="90th percentile figures in euros per month">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">City</th>
+<th data-quarto-table-cell-role="th" scope="col">Left over</th>
+<th data-quarto-table-cell-role="th" scope="col">Cost of living</th>
+<th data-quarto-table-cell-role="th" scope="col">Taxes and<br>
+contributions</th>
+<th data-quarto-table-cell-role="th" scope="col">Gross pay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Vaduz</th>
+<td>€17,008</td>
+<td>€3,083</td>
+<td>€4,575</td>
+<td>€24,667</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Zurich</th>
+<td>€12,218</td>
+<td>€4,258</td>
+<td>€8,190</td>
+<td>€24,667</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">London</th>
+<td>€6,666</td>
+<td>€3,787</td>
+<td>€7,047</td>
+<td>€17,500</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Vienna</th>
+<td>€3,401</td>
+<td>€1,430</td>
+<td>€2,778</td>
+<td>€7,608</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Munich</th>
+<td>€2,716</td>
+<td>€2,510</td>
+<td>€5,524</td>
+<td>€10,750</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Paris</th>
+<td>€2,274</td>
+<td>€2,729</td>
+<td>€3,539</td>
+<td>€8,542</td>
+</tr>
+</tbody>
+</table>
+</div></section><div class="geo-slider" hidden=""><label for="geo-percentile">Income percentile</label><input type="range" id="geo-percentile" min="0" max="4" step="1" value="2" aria-valuetext="50th percentile"><output for="geo-percentile" aria-hidden="true">50th</output></div></figure>
+<script>
+(() => {
+    const figure = document.querySelector("#geo-comparison");
+    const picker = figure.querySelector("#geo-percentile");
+    const slider = picker.closest(".geo-slider");
+    const label = slider.querySelector("output");
+    const panels = [...figure.querySelectorAll("[data-percentile]")];
+    const update = () => {
+        const selected = panels[picker.valueAsNumber];
+        for (const panel of panels) {
+            panel.hidden = panel !== selected;
+        }
+        label.value = selected.dataset.percentile;
+        picker.setAttribute("aria-valuetext", selected.dataset.percentile + " percentile");
+    };
+    picker.addEventListener("input", update);
+    update();
+    slider.hidden = false;
+})();
+</script>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,167 @@
+/* blog styles adapted from latex.css 1.11.0 */
+/*!
+ * latex.css (https://latex.now.sh/)
+ *
+ * source: https://github.com/vincentdoerig/latex-css
+ * licensed under mit (https://github.com/vincentdoerig/latex-css/blob/master/LICENSE)
+*/
+
+@font-face {
+    font-family: "CMU Serif";
+    src: url("fonts/cmunrm.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "CMU Serif";
+    src: url("fonts/cmunbx.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "CMU Serif";
+    src: url("fonts/cmunti.otf") format("opentype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: "CMU Serif";
+    src: url("fonts/cmunbi.otf") format("opentype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: only light;
+  font-size: 1rem;
+  --body-color: hsl(0, 5%, 10%);
+  --body-bg-color: #fff;
+  --link-visited: hsl(0, 100%, 33%);
+  --link-focus-outline: hsl(220, 90%, 52%);
+  --table-border-color: black;
+  --border-width-thin: 1.36px;
+  --border-width-thick: 2.27px;
+  background-color: var(--body-bg-color);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body, h1, p, ul[class], li, figure {
+  margin: 0;
+}
+
+body {
+  font-family: "CMU Serif", Georgia, serif;
+  line-height: 1.8;
+  max-width: 80ch;
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  color: var(--body-color);
+  background-color: var(--body-bg-color);
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+  margin-bottom: 1.625rem;
+}
+
+h1:first-child { text-align: center; }
+
+p {
+  text-align: justify;
+  margin-top: 1rem;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+a:not([class]) { text-decoration-skip-ink: auto; }
+a, a:visited { color: var(--link-visited); }
+a:focus {
+  outline-offset: 2px;
+  outline: 2px solid var(--link-focus-outline);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+input { font: inherit; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: auto;
+  max-width: 100%;
+  border-block: var(--border-width-thick) solid var(--table-border-color);
+}
+
+tbody > tr:first-child > :is(td, th) {
+  border-block-start: var(--border-width-thin) solid var(--table-border-color);
+}
+th[scope='col'],
+tbody > tr:last-child > :is(td, th) {
+  border-block-end: var(--border-width-thin) solid var(--table-border-color);
+}
+th[scope='row'] {
+  border-right: var(--border-width-thin) solid var(--table-border-color);
+}
+
+th, td {
+  text-align: left;
+  padding: .5rem;
+  line-height: 1.1;
+}
+
+.blog-post :is(.title, strong, b, th) { font-weight: 400; }
+.geo-figure { margin: 1.4rem 0; }
+.geo-figure svg { width: 100%; height: auto; display: block; margin: .8rem 0; }
+.geo-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .15rem 1rem;
+    margin: .8rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+.geo-legend li { display: flex; align-items: center; gap: .35em; }
+.geo-legend span {
+    width: .65em;
+    height: .65em;
+    border-radius: 50%;
+    background-color: var(--swatch);
+}
+.geo-slider:not([hidden]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .65rem;
+    margin-top: .85rem;
+}
+.geo-slider input { width: min(45vw, 13rem); margin: 0; }
+.geo-slider output { min-width: 2.25em; }
+.geo-panel { margin-top: 1rem; }
+.geo-table { overflow-x: auto; }
+.geo-table table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+.geo-table th, .geo-table td { padding: .3em .35em; text-align: right; }
+.geo-table td { white-space: nowrap; vertical-align: top; }
+.geo-table th:first-child { text-align: left; }
+.geo-table thead { border-bottom: 1px solid currentColor; }
